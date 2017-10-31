@@ -1,9 +1,9 @@
 # Author : Tatiana Zihindula
 
 class Line(object):
-	''''Line class'''
+	'''Line class'''
 	def __init__(self, *coordinates):
-		'''unpacks the four coordinates given to construct a line'''
+		'''unpacks the four *coordinates given to construct a line'''
 		self.x0, self.y0 = coordinates[0], coordinates[1]
 		self.x1, self.y1 = coordinates[2], coordinates[3]
 
@@ -20,9 +20,9 @@ class Line(object):
 		vertical_steepness = (self.y1 - self.y0)
 		horizontal_steepness = (self.x1 - self.x0)
 		if vertical_steepness == 0:
-			return 1 # vertical line sin ^ = 90 degree
-		elif horizontal_steepness == 0:
 			return 0 # horizontal line cos ^ = 180 degrees
+		elif horizontal_steepness == 0:
+			return 1 # vertical line sin ^ = 90 degree
 		else:
 			return  vertical_steepness / horizontal_steepness
 
@@ -39,5 +39,5 @@ class Line(object):
 		return self.slope() == 1
 
 	def is_horizontal(self):
-		'''returns True if this line is has the slope of 0'''
+		'''returns True if this line has the slope of 0'''
 		return self.slope() == 0
