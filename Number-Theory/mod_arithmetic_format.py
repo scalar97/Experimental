@@ -29,8 +29,8 @@ def modulo_equation (divident, divisor):
 		return (int(divident/divisor) + 1 ,divident % (divisor * -1))
 
 
-q,r = modulo_equation(-1001,15)
-print('{0} = {1}({2}) + {3}'.format(-1001,15,q,r))
+# q,r = modulo_equation(-1001,15)
+# print('{0} = {1}({2}) + {3}'.format(-1001,15,q,r))
 
 
 
