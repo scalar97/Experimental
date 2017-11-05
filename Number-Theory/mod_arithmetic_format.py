@@ -44,7 +44,7 @@ class Test_Modulo_Equation(unittest.TestCase):
 	def test_modulo_equation(self):
 		# true check
 		self.assertSequenceEqual([modulo_equation(d,v)
-								  for d,v in self.input_cases], self.correct_output)
+					for d,v in self.input_cases], self.correct_output)
 		# false check
 		for d, v in self.input_cases:
 			self.assertNotEqual(modulo_equation(d,v), next(self.incorrect_output))
