@@ -36,13 +36,23 @@ def modulo_equation (divident, divisor):
 
 class Test_Modulo_Equation(unittest.TestCase):
 
-	input_cases = [(11,4), (-11,4),(11,-4),(-11,-4),(1,11),(12,1)]
-	correct_output = [(2, 3),(-3, 1),(-2, 3),(3, 1),(0, 1),(12, 0)]
+	input_cases = ((11,4), (-11,4),(11,-4),(-11,-4),(1,11),(12,1))
+	correct_output = ((2, 3),(-3, 1),(-2, 3),(3, 1),(0, 1),(12, 0))
+	incorrect_output = iter(((10, -3),(-34, 1),(-52, 6),(4, -1),(2, 1),(2, 6.0)))
 	zero_division = (8,0)
 
 	def test_modulo_equation(self):
-		for divd , divs in self.input_cases:
-			pass
+		# true check
+		self.assertSequenceEqual([modulo_equation(d,v)
+								  for d,v in self.input_cases], self.correct_output)
+		# false check
+		for d, v in self.input_cases:
+			self.assertNotEqual(modulo_equation(d,v), next(self.incorrect_output))
+
+		# zero division check, unpacks zero_division's arguments
+		with self.assertRaises (ZeroDivisionError):
+			modulo_equation(*self.zero_division)
 			
-#if __name__=='__main__':
-#	unittest.main()
+						
+if __name__=='__main__':
+	unittest.main()
