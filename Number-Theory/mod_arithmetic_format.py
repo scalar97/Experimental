@@ -10,23 +10,24 @@ import unittest
 
 def modulo_equation (divident, divisor):
 	"""Returns the quotient and the remainder as a tuple"""
-	if divisor == 0:
-		raise ZeroDivisionError('Error: The dividor must not equal zero.')
-	
-	elif divident > 0 and divisor > 0:
-		return (int(divident/divisor), divident % divisor)
+	try:
+		if divident > 0 and divisor > 0:
+			return (int(divident/divisor), divident % divisor)
 
-	elif divident < 0 and divisor > 0:
-		# -1 to get one divisor unit above the current quotient
-		return (int(divident/divisor) - 1 , divident % divisor )
+		elif divident < 0 and divisor > 0:
+			# -1 to get one divisor unit above the current quotient
+			return (int(divident/divisor) - 1 , divident % divisor )
 
-	elif divident > 0 and divisor < 0:
-		# * -1 to get the absolute value of the divisor
-		return (int(divident/divisor), divident % (divisor * -1))
+		elif divident > 0 and divisor < 0:
+			# * -1 to get the absolute value of the divisor
+			return (int(divident/divisor), divident % (divisor * -1))
 
-	else:
-		# +1 to get one divisor unit above the current quotient
-		return (int(divident/divisor) + 1 ,divident % (divisor * -1))
+		else:
+			# +1 to get one divisor unit above the current quotient
+			return (int(divident/divisor) + 1 ,divident % (divisor * -1))
+		
+	except ZeroDivisionError :
+		print('ZeroDivisionError: the divisor cannot be zero')
 
 
 # q,r = modulo_equation(-1001,15)
