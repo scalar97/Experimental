@@ -39,17 +39,12 @@ def binary_gcd(a,b):
 
 
 def euclidian_gcd(a,b):
-	if a < 0 :
-		a *= -1
-	if b < 0 :
-		b *= -1
+	a , b = abs(a) , abs(b)
 	if a < b:
 		a , b = b , a
 	if b == 0:
-		print(a,b)
 		return a
 	else:
-		print(a,b)
 		return euclidian_gcd(b, a%b)
 	
 
