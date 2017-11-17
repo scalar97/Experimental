@@ -16,3 +16,5 @@ def mod_power(a, n ,y):
 	else:
 		rest = n - (2 ** (i -1))
 		return (initial * mod_power(a, rest, y)) % 6
+
+	print(mod_power(1234244242242424,434234324242424512,27))
