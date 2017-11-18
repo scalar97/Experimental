@@ -1,5 +1,5 @@
 # program to compute the modulo of a number
-# a raised to the power of a number n, mod a number y.
+# 'a' raised to the power of a number 'n', modulo 'y'.
 
 def mod_power(a, n ,y):
 
@@ -14,7 +14,6 @@ def mod_power(a, n ,y):
 	if 2 ** (i-1) == n:
 		return initial
 	else:
-		rest = n - (2 ** (i -1))
-		return (initial * mod_power(a, rest, y)) % 6
+		return (initial * mod_power(a,  n - (2 ** (i -1)) , y)) % 6
 
 	print(mod_power(1234244242242424,434234324242424512,27))
