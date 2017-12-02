@@ -26,8 +26,10 @@ def modulo_equation (divident, divisor):
 			# +1 to get one divisor unit above the current quotient
 			return (int(divident/divisor) + 1 ,divident % (divisor * -1))
 		
-	except ZeroDivisionError :
-		print('ZeroDivisionError: the divisor cannot be zero')
+	except ZeroDivisionError:
+		raise
+	finally:
+		print('Error: the divisor cannot be zero')
 
 
 # q,r = modulo_equation(-1001,15)
