@@ -9,7 +9,7 @@ def prime_factoriser(number, curr_prime):
 	while number % (curr_prime ** i) == 0:
 		i+=1
 	# alternative to log function is to compare with the next prime
-	# if (number / curr_prime ** i -1) == next(primes)
+	# if (number / curr_prime ** i -1) == get_prime_factor(curr_prime,number//(curr_prime**(i-1)))
 	if log(number, curr_prime) == i-1:
 		return (curr_prime, i-1)
 	else:
@@ -26,6 +26,8 @@ def get_prime_factor(from_, end):
 	all_numbers = (n for n in range(from_, ceil(end ** 0.5) + 1, 2))
 	for number in all_numbers:
 		if end % number == 0:
+			# a prime factor was found
 			return number
+	# the number itself is prime
 	return end
 
