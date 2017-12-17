@@ -19,7 +19,7 @@ def strip_integers_rename(file_list,abspath):
 			# os.path.join() will recreate the full path by joining its second
 			# argument to its first.
 			os.rename(os.path.join(abspath,file_list[i]),
-			os.path.join(abspath,''.join(temp)))
+				  os.path.join(abspath,''.join(temp)))
 
 
 if __name__=='__main__':
