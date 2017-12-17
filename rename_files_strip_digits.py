@@ -23,14 +23,10 @@ def strip_integers_rename(file_list,abspath):
 
 
 def strip_integers_rename2(file_list,abspath):
-	# change to the current working directory to the files absolute path
-	os.chdir(abspath) 
 	for file in file_list:
 		if file[0].isdigit():
-			os.rename(file, file.lstrip('0123456789')) #if current dir is was changed
-			
-			#os.rename(os.path.join(abspath,file),
-			#	  os.path.join(abspath,''.join(temp)))
+			os.rename(os.path.join(abspath,file),
+				  os.path.join(abspath,file.lstrip('0123456789')))
 	
 	
 
@@ -40,4 +36,6 @@ if __name__=='__main__':
 	
 	if len(sys.argv) == 2:
 		dir_path = sys.argv[1]
-		strip_integers_rename(os.listdir(dir_path), dir_path)	
+		strip_integers_rename(os.listdir(dir_path), dir_path)
+	else:
+		print(f'Usage: {sys.argv[0]} dir_expanded_abspath')
