@@ -11,15 +11,15 @@ def strip_integers_rename(file_list,abspath):
 	
 	for i in range(len(file_list)):
 		# if it is an integer its ascii value should be between [48 and 57] included
-		if ord(file_list[i][0]) >= 48 and ord(file_list[i][0]) <= 57:
+		if file_list[i][0].isdigit():
 			temp = deque(file_list[i])
-			while ord(temp[0]) >= 48 and ord(temp[0]) <= 57:
-				del temp[0]
+			while temp[0].isdigit():
+				temp.popleft()
 			# os.rename renames the second argument to the name of the first
 			# os.path.join() will recreate the full path by joining its second
 			# argument to its first.
 			os.rename(os.path.join(abspath,file_list[i]),
-					  os.path.join(abspath,''.join(temp)))
+			os.path.join(abspath,''.join(temp)))
 
 
 if __name__=='__main__':
