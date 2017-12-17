@@ -13,7 +13,7 @@ if len(sys.argv) == 4:
 	url = sys.argv[1]
 	for i in range(this_much_time):
 		webbrowser.open(url)
-		time.sleep(every_this_much_hours)
+		time.sleep(every_this_much_time_in_sec)
 else:
 	print(f'Usage:{sys.argv[0]} open_this_url  this_much_time   every_this_much_time_in_sec')
 	
