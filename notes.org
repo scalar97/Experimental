@@ -1,0 +1,33 @@
+** Modules
+
+- the similarity between webbrowser and turtle is that they are both modules
+
+** Functions vs Methods
+
+- the difference between webbrowser.open() and turtle.Turle() is 
+  that open() is a function withing he webbwoser module. 
+  A function is a block of code that is bound to any specific class or object.
+  Turtle() on the other hand is a class within the turtle module.
+  This class will have methods that will be bound to it and accessed by explicitly
+  creating an instance of this class.
+  
+  When the object is instantiated, the CPU allocates memory to the newly created object,
+  
+- Also When webbrowser.open is called, the body of the open() function is executed,
+  meanwhile when turtle.Turtle() is called, it is its __init__() method body that is executed
+
+** Nested Packages and modules
+
+To access nested modules, the dot is used as opposed to the slash
+e.g. to access ../twilio/rest/__init__.py
+>>> import twilio.rest
+this automatically gives acces to all the contents inside __init__.py
+e.g 
+>>> baz = TwilioRestClient(spam, eggs)
+
+The following is also valid.
+>>> from twilio import rest
+>>> baz = rest.TwilioRestClient(foo,spam)
+
+
+
