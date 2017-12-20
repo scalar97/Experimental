@@ -63,7 +63,7 @@ avatar.VALID_RATINGS=tuple()
   all instances.
 
 	- To access a class variable, the class name has to be used.
-#+begin_src python :results output
+#+begin_src python :results output export
 class Movie(object):
 	VALID_RATINGS = ("G", "PG", "PG-13", "R")
 	def __init__(self,*args, **kwargs):
@@ -81,21 +81,35 @@ it is a class method.
   And since *VALID_RATINGS is now a constant* it should be all capitals by convention. 
   I also changed the datastrucutre from set to tuple to make the variable /immuatable/.
 
-*** Built-in class variables
--  *__doc__* : displays the documentation written at thestart of the class.
-	
- 
-  
-#+begin_src python :results output
+*** Built-in class variables.
+
+ |----------------+--------------------------------------------------------------+------------------|
+ | Variable name  | Description                                                  | Return type     |
+ |----------------+--------------------------------------------------------------+------------------|
+ | *__doc__*      | displays the documentation written at thestart of the class. | string, None     |
+ |----------------+--------------------------------------------------------------+------------------|
+ | *__name__*     | Displays the name of the class                               | string           |
+ |----------------+--------------------------------------------------------------+------------------|
+ | *__base__*     | Displays classes from which this class inherits from         | tuple of classes |
+ |----------------+--------------------------------------------------------------+------------------|
+ | *__module__*   | Displays the name of the module a.k.a file in which this     | String           |
+ |                | module was defined                                           |                  |
+ |----------------+--------------------------------------------------------------+------------------|
+
+#+begin_src python :results output export
 class Movie(object):
 	'''This class provides a way to store movie related information'''
 	pass
 
-# to display the documentation
-print(Movie.__doc__)
+# displaying the class attributes
+class_variables = ('Movie.__name__', 'Movie.__doc__', 'Movie.__base__', 'Movie.__module__')
+for attribute in class_variables:
+	print(attribute,'\t:',eval(attribute))
 
 #+end_src
 
 #+RESULTS:
-: This class provides a way to store movie related information
-
+: Movie.__name__ 	: Movie
+: Movie.__doc__ 	: This class provides a way to store movie related information
+: Movie.__base__ 	: <class 'object'>
+: Movie.__module__ 	: __main__
