@@ -1,3 +1,6 @@
+The following repository contains personal implementation of the 'Python-Programming-Funcdation' course I took on Udacity.
+This ReadMe file contains personal notes I took as I while I was taking the course. 
+
 ** Modules
 
 - the similarity between webbrowser and turtle is that they are both modules
