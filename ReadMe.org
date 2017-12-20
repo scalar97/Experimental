@@ -76,8 +76,10 @@ print(Movie.VALID_RATINGS)
 
 #+end_src
 
-#+RESULTS:
-: ('G', 'PG', 'PG-13', 'R')
+RESULTS:
+#+begin_src
+('G', 'PG', 'PG-13', 'R')
+#+end_src
 
   Notice that the above code is not bound to any object, but the class itself, because
 it is a class method.
@@ -111,11 +113,17 @@ for attribute in class_variables:
 
 #+end_src
 
-#+RESULTS:
-: Movie.__name__ 	: Movie
-: Movie.__doc__ 	: This class provides a way to store movie related information
-: Movie.__base__ 	: <class 'object'>
-: Movie.__module__ 	: __main__
+RESULTS:
+#+begin_src 
+
+Movie.__name__ 	: Movie
+Movie.__doc__ 	: This class provides a way to store movie related information
+Movie.__base__ 	: <class 'object'>
+Movie.__module__: __main__
+
+#+end_src
+
+
 
 ** Inheritance
 Inheritance is when one object uses attributes and methods from another object that make sens for it to have.
@@ -133,7 +141,7 @@ class Child(Parent):
 
 The code above sets the Child class to use everything currently
 defined in the Parent class. 
-This is done by *explicitly passing the /Parent/ class as an attribute to the Child class*
+This is done by *explicitly passing the Parent class as an attribute to the Child() class using Child(Parent)*
 
 The Child class however has varables that are specific to its class.
 e.g the child may have a certain number of toys.
@@ -170,7 +178,7 @@ To instantiate noth the Parent and Child, simply pass positional arguments as th
 
 #+begin_src python :session
 
-# the Parent __init__() expects this in this order
+# the Parent __init__() expects arguments in this order
 catty_billy = Parent('Billy', 'gray')
 
 #the Child class expects a new attribute number_of_toys
@@ -188,7 +196,53 @@ Inheritance generaly refers to the *shared attributes* as opposed to *similar va
 e.g the parent has an eye_color attribute and so is the child.
 the parent's eye color value may be gray but the kid's eye color's value may not.
 
-Usually these classes make sens to inherit from eachother both in real-life and in code.
+*** Reusing Methods
+when a child class inherits from a parent class, it also inherits the methods.
+
+e.g in the parent class
+
+#+begin_src python :session
+
+class Parent(object):
+	...
+	def show_info(self):
+		return f'{self.last_name} has {self.eye_color} eyes.'
+
+#+end_src
+
+The child class does not have this method. but because it inherits it from the parent class, the following produce this output.
+
+#+begin_src python :session
+
+>>>catty_billy.show_info()
+'Billy has gray eyes.'
+>>>pat_billy.show_info()
+'Billy has brown eyes.'
+#+end_src
+
+pat_billy does not have the show_info() method but can access it through its inheritance.
+
+*** Method overriding
+The child class could use the parent show_info() method but this method does not take in account the child specific variables such as the number_of_toys
+
+to include this, the parent showinfo method has to be overrriden.
+
+#+begin_src python :session
+
+class Child(Parent):
+	...
+	def show_info(self):
+		return super().show_info()[-1]+ f' and owns {self.number_of_toys} toys.'
+
+>>> catty_billy.show_info()
+'Billy has gray eyes.'
+>>> pat_billy.show_info()
+'Billy has brown eyes and owns 10 toys.'
+
+#+end_src
+
+Notice that the child object gets the super().show_info() method customised to its own attribute.
+As the show_info() method returns a string, the children can erform iterable operations to it such as *slicing the trailling dot from the parent show_info() version, using super().show_info()[-1]*.
 
 
-
+~ end of the course ~
