@@ -54,15 +54,18 @@ baz = rest.TwilioRestClient(foo,spam)
 - class variables are variables that are shared among instances.
   example in the media.Movie() class, if there is a new variable called valid ratings
   it would not make sens for toy_story to have its own attribute called 
+
 #+begin_src python :session
 toy_story.VALID_RATINGS =tuple()
 #and for the avatar movie to have an attribute called
 avatar.VALID_RATINGS=tuple()
 #+end_src
+
   the valid_ratings set() is a good candidate for a class variable as it is the same ressource among
   all instances.
 
 	- To access a class variable, the class name has to be used.
+
 #+begin_src python :results output export
 class Movie(object):
 	VALID_RATINGS = ("G", "PG", "PG-13", "R")
@@ -83,18 +86,18 @@ it is a class method.
 
 *** Built-in class variables.
 
- |----------------+--------------------------------------------------------------+------------------|
- | Variable name  | Description                                                  | Return type     |
- |----------------+--------------------------------------------------------------+------------------|
- | *__doc__*      | displays the documentation written at thestart of the class. | string, None     |
- |----------------+--------------------------------------------------------------+------------------|
- | *__name__*     | Displays the name of the class                               | string           |
- |----------------+--------------------------------------------------------------+------------------|
- | *__base__*     | Displays classes from which this class inherits from         | tuple of classes |
- |----------------+--------------------------------------------------------------+------------------|
- | *__module__*   | Displays the name of the module a.k.a file in which this     | String           |
- |                | module was defined                                           |                  |
- |----------------+--------------------------------------------------------------+------------------|
+ |---------------+--------------------------------------------------------------+------------------|
+ | Variable name | Description                                                  | Return type      |
+ |---------------+--------------------------------------------------------------+------------------|
+ | /__doc__/     | displays the documentation written at thestart of the class. | string, None     |
+ |---------------+--------------------------------------------------------------+------------------|
+ | /__name__/    | Displays the name of the class                               | string           |
+ |---------------+--------------------------------------------------------------+------------------|
+ | /__base__/    | Displays classes from which this class inherits from         | tuple of classes |
+ |---------------+--------------------------------------------------------------+------------------|
+ | /__module__/  | Displays the name of the module a.k.a file in which this     | String           |
+ |               | module was defined                                           |                  |
+ |---------------+--------------------------------------------------------------+------------------|
 
 #+begin_src python :results output export
 class Movie(object):
@@ -113,3 +116,79 @@ for attribute in class_variables:
 : Movie.__doc__ 	: This class provides a way to store movie related information
 : Movie.__base__ 	: <class 'object'>
 : Movie.__module__ 	: __main__
+
+** Inheritance
+Inheritance is when one object uses attributes and methods from another object that make sens for it to have.
+
+e.g
+#+begin_src python :session
+class Parent(object):
+	def __init__(self,last_name, eye_color):
+		self.last_name = last_name
+		self.eye_color = eye_color
+
+class Child(Parent):
+	pass
+#+end_src
+
+The code above sets the Child class to use everything currently
+defined in the Parent class. 
+This is done by *explicitly passing the /Parent/ class as an attribute to the Child class*
+
+The Child class however has varables that are specific to its class.
+e.g the child may have a certain number of toys.
+
+#+begin_src python :session
+class Child(Parent):
+	def __init__(self,last_name, eye_color, number_of_toys):
+		pass
+#+end_src
+
+To initialise variables of the inherited Child class, The parent constructor has to be invoked.
+This is done using the *super()* keyword.
+e.g
+
+#+begin_src python :session
+class Child(Parent):
+	def __init__(self,last_name, eye_color, number_of_toys):
+		super().__init__(last_name, eye_color)
+		self.number_of_toys = number_of_toys
+#+end_src
+
+Notice that the parent constructor is only called with the arguments it has. Not new ones like /number_of_toys/.
+As these are specific to the child, *they have to be explicitly initialised inside the Child() class*.
+thus:
+#+begin_src python :session
+self.number_of_toys = number_of_toys
+#+end_src
+
+only present in the Child class and *not the Parent() class, Nor passed to it via the super() constructor*.
+
+*** Instatiation
+
+To instantiate noth the Parent and Child, simply pass positional arguments as they are expected in their respective constructor methods.
+
+#+begin_src python :session
+
+# the Parent __init__() expects this in this order
+catty_billy = Parent('Billy', 'gray')
+
+#the Child class expects a new attribute number_of_toys
+pat_billy = Child('Billy','brown',10)
+
+#+end_src
+
+*IMPORTANT NOTE :* though pat_billy inherits from catty_billy, does not mean that they have to have the same value for the eye_colors.
+
+In real life, people who uses inheritance may difine it in term of values because it may make sens in that case.
+However in coding perspective inheritance refers to the attributes that the Parent has which make sens for inherited children 
+clas to acquire. if a parent has a surname, che child should have it too if this later inherits from the parent.
+
+Inheritance generaly refers to the *shared attributes* as opposed to *similar values*.
+e.g the parent has an eye_color attribute and so is the child.
+the parent's eye color value may be gray but the kid's eye color's value may not.
+
+Usually these classes make sens to inherit from eachother both in real-life and in code.
+
+
+
