@@ -28,9 +28,6 @@ e.g
 The following is also valid.
 >>> from twilio import rest
 >>> baz = rest.TwilioRestClient(foo,spam)
-
-
-
 ** Class definition and instatiation
 - It is good practice to define your classes in one file
   Then import them in another for use.
@@ -41,3 +38,26 @@ The following is also valid.
   The same thing apply for functions that do not take self as their first argument.
   these are usually helper functions to instance methods. or object methods.
 
+** Class variables
+- class variables are variables that are shared among instances.
+  example in the media.Movie() class, if there is a new variable called valid ratings
+  it would not make sens for toy_story to have its own attribute called 
+  toy_story.valid_ratings =[] and for the avatar movie to have an attribute called
+  avatar.valid_ratings=[]
+  this is a good candidate for a class variable as it is the same ressource among'
+  all instances.
+
+	- To access a class variable, the class name has to be used.
+#+begin_src python :session
+class Movie(object):
+	valid_ratings = {"G", "PG", "PG-13", "R"}
+	def __init__(self,*args, **kwargs):
+		pass
+# to access the valid ratings
+print(Movie.valid_ratings)
+
+#+end_src
+Notice that the above code is not bound to any object, but the class itself, because
+it is a class method.
+ 
+  
