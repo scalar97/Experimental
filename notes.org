@@ -51,9 +51,12 @@ baz = rest.TwilioRestClient(foo,spam)
 - class variables are variables that are shared among instances.
   example in the media.Movie() class, if there is a new variable called valid ratings
   it would not make sens for toy_story to have its own attribute called 
-  #+begin_src python :session toy_story.valid_ratings ={} #+end_src and for the avatar movie to have an attribute called
-  #+begin_src python :session avatar.valid_ratings={} #+end_src
-  this is a good candidate for a class variable as it is the same ressource among
+#+begin_src python :session
+toy_story.valid_ratings ={}
+#and for the avatar movie to have an attribute called
+avatar.valid_ratings={} 
+#+end_src
+  the valid_ratings set() is a good candidate for a class variable as it is the same ressource among
   all instances.
 
 	- To access a class variable, the class name has to be used.
@@ -66,7 +69,7 @@ class Movie(object):
 print(Movie.valid_ratings)
 
 #+end_src
-Notice that the above code is not bound to any object, but the class itself, because
+  Notice that the above code is not bound to any object, but the class itself, because
 it is a class method.
  
   
