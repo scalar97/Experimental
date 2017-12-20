@@ -20,14 +20,23 @@
 
 To access nested modules, the dot is used as opposed to the slash
 e.g. to access ../twilio/rest/__init__.py
->>> import twilio.rest
+#+begin_src python :session 
+import twilio.rest
+#+end_src
+
 this automatically gives acces to all the contents inside __init__.py
 e.g 
->>> baz = TwilioRestClient(spam, eggs)
+#+begin_src python :session 
+baz = TwilioRestClient(spam, eggs)
+#+end_src
 
 The following is also valid.
->>> from twilio import rest
->>> baz = rest.TwilioRestClient(foo,spam)
+
+#+begin_src python :session
+from twilio import rest
+baz = rest.TwilioRestClient(foo,spam)
+#+end_src
+
 ** Class definition and instatiation
 - It is good practice to define your classes in one file
   Then import them in another for use.
@@ -42,9 +51,9 @@ The following is also valid.
 - class variables are variables that are shared among instances.
   example in the media.Movie() class, if there is a new variable called valid ratings
   it would not make sens for toy_story to have its own attribute called 
-  toy_story.valid_ratings =[] and for the avatar movie to have an attribute called
-  avatar.valid_ratings=[]
-  this is a good candidate for a class variable as it is the same ressource among'
+  #+begin_src python :session toy_story.valid_ratings ={} #+end_src and for the avatar movie to have an attribute called
+  #+begin_src python :session avatar.valid_ratings={} #+end_src
+  this is a good candidate for a class variable as it is the same ressource among
   all instances.
 
 	- To access a class variable, the class name has to be used.
