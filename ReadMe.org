@@ -22,12 +22,12 @@ This ReadMe file contains personal notes I took as I while I was taking the cour
 ** Nested Packages and modules
 
 To access nested modules, the dot is used as opposed to the slash
-e.g. to access ../twilio/rest/__init__.py
+e.g. to access *../twilio/rest/__init__.py*
 #+begin_src python :session 
 import twilio.rest
 #+end_src
 
-this automatically gives acces to all the contents inside __init__.py
+this automatically gives acces to all the contents inside *__init__.py*
 e.g 
 #+begin_src python :session 
 baz = TwilioRestClient(spam, eggs)
@@ -63,7 +63,7 @@ avatar.VALID_RATINGS=tuple()
   all instances.
 
 	- To access a class variable, the class name has to be used.
-#+begin_src python :session
+#+begin_src python :results output
 class Movie(object):
 	VALID_RATINGS = ("G", "PG", "PG-13", "R")
 	def __init__(self,*args, **kwargs):
@@ -72,10 +72,30 @@ class Movie(object):
 print(Movie.VALID_RATINGS)
 
 #+end_src
+
+#+RESULTS:
+: ('G', 'PG', 'PG-13', 'R')
+
   Notice that the above code is not bound to any object, but the class itself, because
 it is a class method.
   And since *VALID_RATINGS is now a constant* it should be all capitals by convention. 
   I also changed the datastrucutre from set to tuple to make the variable /immuatable/.
 
+*** Built-in class variables
+-  *__doc__* : displays the documentation written at thestart of the class.
+	
  
   
+#+begin_src python :results output
+class Movie(object):
+	'''This class provides a way to store movie related information'''
+	pass
+
+# to display the documentation
+print(Movie.__doc__)
+
+#+end_src
+
+#+RESULTS:
+: This class provides a way to store movie related information
+
