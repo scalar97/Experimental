@@ -1,13 +1,70 @@
 The following repository contains personal implementation of the 'Python-Programming-Funcdation' course I took on Udacity.
 This ReadMe file contains personal notes I took as I while I was taking the course. 
 
-** Modules
+* Modules in Python
+
+  Modules in python are any file consisting of python code. this module can define.
+  modules, functions, classes..
 
 - the similarity between webbrowser and turtle is that they are both modules
 
-** Functions vs Methods
 
-- the difference between _webbrowser.open()_ and _turtle.Turle()_ is 
+* Packages in Python
+
+  A package is a folder that contain many modules.
+  e.g in the folder ./awesome there are three modules:
+	- ukulele.py
+	- barbeque.py
+	- cycing.py
+	- surfing.py
+  Imagine there is a new file called 'vacation.py' that needs all the files in the folder '/awesome'
+  there are few ways they can ba imported.
+
+  1. By Module name (explicitly): this can also be done one line at a time.
+
+#+begin_src python :session
+from awesome import ukulele, barbeque, cycling, surfing
+#+end_src
+
+  2. All module names at once
+#+begin_src python :session
+from awesome import *
+#+end_src
+
+ 3. Module name and their content explicitly : too many lines in my vacations.py already
+#+begin_src python :session
+from awesome.ukulele import *
+from awesome.barbeque import *
+from awesome.cycling import *
+from awesome.surfing import *
+#+end_src
+
+ 4. *Using an __init__.py file*
+This file combines all the methods you may want to use at once when importing any package.
+e.g 
+
+#+begin_src python :session
+# __init__.py's content
+
+from awesome.ukulele import *
+from awesome.barbeque import *
+from awesome.cycling import *
+from awesome.surfing import *
+#+end_src
+
+Now in vacation.py, simply import /awesome/ and all the code in __init__.py will be added.
+
+#+begin_src python :session
+# vacation.py's content
+
+import awesome
+...
+#+end_src
+
+
+* Functions vs Methods
+
+- The difference between _webbrowser.open()_ and _turtle.Turle()_ is 
   that *open()* is a function withing he webbwoser module. 
   A function is a block of code that is *NOT bound* to any specific class or object.
   *Turtle()* on the other hand is a class within the turtle module.
@@ -19,7 +76,8 @@ This ReadMe file contains personal notes I took as I while I was taking the cour
 - Also When webbrowser.open is called, the body of the open() function is executed,
   meanwhile when *turtle.Turtle()* is called, it is its *__init__()* method body that is executed
 
-** Nested Packages and modules
+
+* Nested Packages and modules
 
 To access nested modules, the dot is used as opposed to the slash
 e.g. to access *../twilio/rest/__init__.py*
@@ -27,8 +85,9 @@ e.g. to access *../twilio/rest/__init__.py*
 import twilio.rest
 #+end_src
 
-this automatically gives acces to all the contents inside *__init__.py*
-e.g 
+This automatically gives acces to all the contents inside *__init__.py*
+e.g
+
 #+begin_src python :session 
 baz = TwilioRestClient(spam, eggs)
 #+end_src
@@ -40,18 +99,22 @@ from twilio import rest
 baz = rest.TwilioRestClient(foo,spam)
 #+end_src
 
-** Class definition and instatiation
+
+* Class definition and instatiation
+
 - It is good practice to define your classes in one file
   Then import them in another for use.
 
-- When the self keyword is taken out from a variable inside a method, 
+- When the *self* keyword is taken out from a variable inside a method, 
   that variable gets changed from an instance attribute or instance varuable to 
   a local variable inside that method. 
-  The same thing apply for functions that do not take self as their first argument.
+  The /same thing apply for functions that do not take self as their first argument/.
   these are usually helper functions to instance methods. or object methods.
 
-** Class variables
-- class variables are variables that are shared among instances.
+
+* Class variables
+
+- Class variables are variables that are shared among instances.
   example in the media.Movie() class, if there is a new variable called valid ratings
   it would not make sens for toy_story to have its own attribute called 
 
@@ -61,8 +124,7 @@ toy_story.VALID_RATINGS =tuple()
 avatar.VALID_RATINGS=tuple()
 #+end_src
 
-  the valid_ratings set() is a good candidate for a class variable as it is the same ressource among
-  all instances.
+  The valid_ratings set() is a good candidate for a class variable as it is the same ressource among all instances.
 
 	- To access a class variable, the class name has to be used.
 
@@ -86,20 +148,19 @@ it is a class method.
   And since *VALID_RATINGS is now a constant* it should be all capitals by convention. 
   I also changed the datastrucutre from set to tuple to make the variable /immuatable/.
 
-*** Built-in class variables.
+** Built-in class variables.
 
- |---------------+--------------------------------------------------------------+------------------|
- | Variable name | Description                                                  | Return type      |
- |---------------+--------------------------------------------------------------+------------------|
- | /__doc__/     | displays the documentation written at thestart of the class. | string, None     |
- |---------------+--------------------------------------------------------------+------------------|
- | /__name__/    | Displays the name of the class                               | string           |
- |---------------+--------------------------------------------------------------+------------------|
- | /__base__/    | Displays classes from which this class inherits from         | tuple of classes |
- |---------------+--------------------------------------------------------------+------------------|
- | /__module__/  | Displays the name of the module a.k.a file in which this     | String           |
- |               | module was defined                                           |                  |
- |---------------+--------------------------------------------------------------+------------------|
+ |---------------+-----------------------------------------------------------------------------+------------------|
+ | Variable name | Description                                                                 | Return type      |
+ |---------------+-----------------------------------------------------------------------------+------------------|
+ | /__doc__/     | displays the documentation written at thestart of the class.                | string, None     |
+ |---------------+-----------------------------------------------------------------------------+------------------|
+ | /__name__/    | Displays the name of the class                                              | string           |
+ |---------------+-----------------------------------------------------------------------------+------------------|
+ | /__base__/    | Displays classes from which this class inherits from                        | tuple of classes |
+ |---------------+-----------------------------------------------------------------------------+------------------|
+ | /__module__/  | Displays the name of the module a.k.a file in which this module was defined | String           |
+ |---------------+-----------------------------------------------------------------------------+------------------|
 
 #+begin_src python :results output export
 class Movie(object):
@@ -120,12 +181,11 @@ Movie.__name__ 	: Movie
 Movie.__doc__ 	: This class provides a way to store movie related information
 Movie.__base__ 	: <class 'object'>
 Movie.__module__: __main__
-
 #+end_src
 
 
+* Inheritance
 
-** Inheritance
 Inheritance is when one object uses attributes and methods from another object that make sens for it to have.
 
 e.g
@@ -170,9 +230,9 @@ thus:
 self.number_of_toys = number_of_toys
 #+end_src
 
-only present in the Child class and *not the Parent() class, Nor passed to it via the super() constructor*.
+Only present in the Child class and *not the Parent() class, Nor passed to it via the super() constructor*.
 
-*** Instatiation
+** Instatiation
 
 To instantiate noth the Parent and Child, simply pass positional arguments as they are expected in their respective constructor methods.
 
@@ -196,8 +256,9 @@ Inheritance generaly refers to the *shared attributes* as opposed to *similar va
 e.g the parent has an eye_color attribute and so is the child.
 the parent's eye color value may be gray but the kid's eye color's value may not.
 
-*** Reusing Methods
-when a child class inherits from a parent class, it also inherits the methods.
+** Reusing Methods
+
+When a child class inherits from a parent class, it also inherits the methods.
 
 e.g in the parent class
 
@@ -222,10 +283,11 @@ The child class does not have this method. but because it inherits it from the p
 
 pat_billy does not have the show_info() method but can access it through its inheritance.
 
-*** Method overriding
-The child class could use the parent show_info() method but this method does not take in account the child specific variables such as the number_of_toys
 
-to include this, the parent showinfo method has to be overrriden.
+** Method overriding
+
+The child class could use the parent show_info() method but this method does not take in account the child specific variables such as the number_of_toys.
+To include this, the parent show_info method has to be overriden.
 
 #+begin_src python :session
 
