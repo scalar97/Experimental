@@ -31,3 +31,13 @@ The following is also valid.
 
 
 
+** Class definition and instatiation
+- It is good practice to define your classes in one file
+  Then import them in another for use.
+
+- When the self keyword is taken out from a variable inside a method, 
+  that variable gets changed from an instance attribute or instance varuable to 
+  a local variable inside that method. 
+  The same thing apply for functions that do not take self as their first argument.
+  these are usually helper functions to instance methods. or object methods.
+
