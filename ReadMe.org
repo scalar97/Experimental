@@ -7,17 +7,17 @@ This ReadMe file contains personal notes I took as I while I was taking the cour
 
 ** Functions vs Methods
 
-- the difference between webbrowser.open() and turtle.Turle() is 
-  that open() is a function withing he webbwoser module. 
-  A function is a block of code that is bound to any specific class or object.
-  Turtle() on the other hand is a class within the turtle module.
+- the difference between _webbrowser.open()_ and _turtle.Turle()_ is 
+  that *open()* is a function withing he webbwoser module. 
+  A function is a block of code that is *NOT bound* to any specific class or object.
+  *Turtle()* on the other hand is a class within the turtle module.
   This class will have methods that will be bound to it and accessed by explicitly
   creating an instance of this class.
   
-  When the object is instantiated, the CPU allocates memory to the newly created object,
+  _When the object is instantiated, the CPU allocates memory to the newly created object._
   
 - Also When webbrowser.open is called, the body of the open() function is executed,
-  meanwhile when turtle.Turtle() is called, it is its __init__() method body that is executed
+  meanwhile when *turtle.Turtle()* is called, it is its *__init__()* method body that is executed
 
 ** Nested Packages and modules
 
@@ -55,9 +55,9 @@ baz = rest.TwilioRestClient(foo,spam)
   example in the media.Movie() class, if there is a new variable called valid ratings
   it would not make sens for toy_story to have its own attribute called 
 #+begin_src python :session
-toy_story.valid_ratings ={}
+toy_story.VALID_RATINGS =tuple()
 #and for the avatar movie to have an attribute called
-avatar.valid_ratings={} 
+avatar.VALID_RATINGS=tuple()
 #+end_src
   the valid_ratings set() is a good candidate for a class variable as it is the same ressource among
   all instances.
@@ -65,14 +65,17 @@ avatar.valid_ratings={}
 	- To access a class variable, the class name has to be used.
 #+begin_src python :session
 class Movie(object):
-	valid_ratings = {"G", "PG", "PG-13", "R"}
+	VALID_RATINGS = ("G", "PG", "PG-13", "R")
 	def __init__(self,*args, **kwargs):
 		pass
 # to access the valid ratings
-print(Movie.valid_ratings)
+print(Movie.VALID_RATINGS)
 
 #+end_src
   Notice that the above code is not bound to any object, but the class itself, because
 it is a class method.
+  And since *VALID_RATINGS is now a constant* it should be all capitals by convention. 
+  I also changed the datastrucutre from set to tuple to make the variable /immuatable/.
+
  
   
