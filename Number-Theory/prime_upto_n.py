@@ -4,11 +4,11 @@ def prime_upto_n(max_):
 	
 	for prime in range(2,max_ + 1):
 		if prime not in prime_divisors:
-			j = prime * 2
-			while j <= max_:
+			j = prime * 2 # start counting from next prime factor
+			while j <= max_: # stay in the bouds specified by max_
 				if j % prime == 0:
-					prime_divisors.add(j)
-				j += prime
+					prime_divisors.add(j) # add the number to the seen set()
+				j += prime # increment in prime factors
 			primes.add(prime)
 		
 	return primes
