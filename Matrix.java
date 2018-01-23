@@ -104,7 +104,13 @@ public class Matrix implements Cloneable
 		{
 			Matrix answer = new Matrix(this.getRows, other.getCols);
 			
-			
+			double sum = 0;
+			for (int col = 0; col < answer.s
+			for (int i = 0; i< this.getRows(); i++){
+				for (int j = i ; j< other.getCols(); j++){
+					answer[i][col] += this.elements[i][j] * other.elements[i][j];
+				}
+			}
 		}
 	}
 	// a static method is a method that you call on a class rather than 
