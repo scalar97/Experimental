@@ -1,4 +1,4 @@
-//package intro.oop;
+// package 00.matrix;
 // class definition
 // this means that this class can be used outside of the Matrix class
 public class Matrix
@@ -8,16 +8,39 @@ public class Matrix
 	private int rows;
 	private int cols;
 	// making a 2 D array to encapsulate the matrix
-	private double [][] elements;
-
-
+	private double[][] elements;
 
 	public static void main(String[] args)
 	{	
-		Matrix matrix = new Matrix(3,3);
-		matrix.identity();
-		matrix.scalarMul(2);
-		System.out.println(matrix);
+		Matrix m1 = new Matrix(2,2);
+		Matrix m2 = new Matrix(2,1);
+		Matrix m3 = new Matrix(2,2);
+		m1.setElements(0,0,2);
+		m1.setElements(0,1,1);
+		m1.setElements(1,0,3);
+		m1.setElements(1,1,0);
+
+		m2.setElements(0,0,1);
+		m2.setElements(1,0,5);
+		
+		for(int i=0; i< m3.getRows(); i++)
+			for (int j=0; j< m3.getCols(); j++)
+				m3.setElements(i,j,(j+i) * 3);
+		System.out.println("Matrix 1: \n" + m1);
+		System.out.println("Matrix 2: \n" + m2);
+		System.out.println("Matrix 3: \n" + m3);
+		System.out.println("Matrix 1 * Matrix 2: \n" + m1.mul(m2));
+		System.out.println("Matrix 1 * Matrix 3: \n" + m1.mul(m3));
+		System.out.println("Matrix 3 + Matrix 1: \n" + m3.add(m1));
+		System.out.println("Matrix 3 - Matrix 1: \n" + m3.sub(m1));
+		System.out.println("Matrix 2 * 3 (Multiplication by scalar): \n" + m2.scalarMul(3));
+		System.out.print  ("Matrix 3 and Matrix 1 have the same size:" + m3.isSize(m1));
+		System.out.print  ("\nMatrix 3 and Matrix 2 have the same size:" + m3.isSize(m2));
+		System.out.print  ("\nMatrix 3 and Matrix 2 are compatible for multiplication:" + m3.isMulCompatible(m2));
+		System.out.print  ("\nMatrix 2 frist and Matrix 1 second are compatible for multiplication:" + m2.isMulCompatible(m1));
+		System.out.print  ("\nMatrix 1 is a Square Matrix:" + m1.isSquare());
+		System.out.println("\nMatrix 2 is a Square Matrix:" + m2.isSquare());
+		System.out.println("\nMatrix 1's clone:\n" + m1.clone());
 	}
 
 
@@ -48,6 +71,7 @@ public class Matrix
 	}
 
 	public Matrix clone(){
+		/** Returns a copy of the calling Matrix */
 		Matrix newMatrix = new Matrix(this.getRows(), this.getCols());
 		
 		for(int i=0; i< newMatrix.getRows(); i++)
@@ -58,6 +82,8 @@ public class Matrix
 	}
 	
 	public void identity(){
+		/** Trnasforms a square matrix into an identity or throws an exception
+		  *	for a non square matrix */
 		if (this.isSquare())
 			for(int i = 0; i < this.getRows(); i++)
 				elements[i][i] = 1;
@@ -66,6 +92,7 @@ public class Matrix
 	}
 	
 	public String toString(){
+		/** Returns a string representation of the matrix */
 		String ret="";
 		
 		for(int i = 0; i< this.getRows(); i++){
@@ -92,35 +119,42 @@ public class Matrix
 		return this.getCols() == other.getRows();
 	}
 	
-	public void add(Matrix other)
-	{
+	public Matrix add(Matrix other){
+		/** Adds two matrices of the same size. 
+		  * Throws an exception if the sizes are different */
 		if(this.isSize(other)){
 			for(int i=0; i< this.getRows(); i++){
 				for (int j=0; j< this.getCols(); j++){
 					this.elements[i][j] += other.elements[i][j];
 				}
 			}
+			return this;
 		}
 		else
 			throw new IllegalArgumentException("Matrix incompatible for addition");
 	}
+
+	// a static method is a method that you call on a class rather than the object
+	public static Matrix add(Matrix matrix1, Matrix matrix2){
+		return matrix1.clone().add(matrix2);
+	}
 	
-	public void scalarMul(double scalar)
-	{
+	public Matrix scalarMul(double scalar){
+		/** Returns the original matrix multiplied by a scalar */	
 		for(int i=0; i< this.getRows(); i++){
 			for (int j=0; j< this.getCols(); j++)
 				this.elements[i][j] *= scalar;
 		}
+		return this;
 	}
 	
-	public void sub(Matrix other)
-	{
-		Matrix newM = other.clone();
-		newM.scalarMul(-1);
-		this.add(newM);
+	public Matrix sub(Matrix other){
+		/**Substractes a matrix using the rule A-B = A+(-B) */
+		return this.add(other.clone().scalarMul(-1));
 	}
 
-	private double getsum(Matrix other, int start, int end){
+	private double getsum_helper(Matrix other, int start, int end){
+		/** Helper function to get the partial sum for matrix multiplication method */
 		double sum = 0;
 		int i=0;
 		while(i < this.getCols()){
@@ -130,32 +164,65 @@ public class Matrix
 		return sum;
 	}
 	
-	public Matrix mul(Matrix other)
-	{
+	public Matrix mul(Matrix other){
+		/** Returns a Matrix product of two matrices compatible for multiplication
+		  * Throws an error if they are not compatible. */
 		if (this.isMulCompatible(other)){
 			Matrix answer = new Matrix(this.getRows(), other.getCols());
 			for (int x = 0; x < answer.getRows(); x++){
-				for(int y = x; y< answer.getCols(); y++){
-					answer.elements[x][y] = answer.getsum(other,x,y);
+				for(int y = 0; y< answer.getCols(); y++){
+					answer.elements[x][y] = this.getsum_helper(other,x,y);
 				} 
 			}
 			return answer;
 		}
 		throw new IllegalArgumentException("Matrix incompatible for multiplication");
 	}
-
-	
-	// a static method is a method that you call on a class rather than 
-	// calling it on an object
-	// this is called on two matrices.
-	public static Matrix add(Matrix matrix1, Matrix matrix2)
-	{
-		Matrix newM = matrix2.clone();
-		newM.add(matrix2);
-		return newM;
-	}	
 }
 
+/* OUTPUT
 
-//compile
-//$javac ie.dit/*.java && java ie.dit.Main
+Matrix 1: 
+[ 2.0, 1.0 ]
+[ 3.0, 0.0 ]
+
+Matrix 2: 
+[ 1.0 ]
+[ 5.0 ]
+
+Matrix 3: 
+[ 0.0, 3.0 ]
+[ 3.0, 6.0 ]
+
+Matrix 1 * Matrix 2: 
+[ 7.0 ]
+[ 3.0 ]
+
+Matrix 1 * Matrix 3: 
+[ 3.0, 12.0 ]
+[ 0.0, 9.0 ]
+
+Matrix 3 + Matrix 1: 
+[ 2.0, 4.0 ]
+[ 6.0, 6.0 ]
+
+Matrix 3 - Matrix 1: 
+[ 0.0, 3.0 ]
+[ 3.0, 6.0 ]
+
+Matrix 2 * 3 (Multiplication by scalar): 
+[ 3.0 ]
+[ 15.0 ]
+
+Matrix 3 and Matrix 1 have the same size:true
+Matrix 3 and Matrix 2 have the same size:false
+Matrix 3 and Matrix 2 are compatible for multiplication:true
+Matrix 2 frist and Matrix 1 second are compatible for multiplication:false
+Matrix 1 is a Square Matrix:true
+Matrix 2 is a Square Matrix:false
+
+Matrix 1's clone:
+[ 2.0, 1.0 ]
+[ 3.0, 0.0 ]
+
+*/
