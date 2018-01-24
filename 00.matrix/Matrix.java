@@ -123,7 +123,7 @@ public class Matrix
         /** Helper function to get the partial sum for matrix multiplication method */
         double sum = 0;
         
-        for(int i=0; < this.getCols(); i++){
+        for(int i=0;i < this.getCols(); i++) {
             sum += this.elements[start][i] * other.elements[i][end];
         }
         return sum;
