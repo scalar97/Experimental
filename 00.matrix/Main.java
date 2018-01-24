@@ -1,4 +1,4 @@
-//package intro.oop;
+package 00.matrix;
 
 public class Main
 {
