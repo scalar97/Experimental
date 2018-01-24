@@ -1,13 +1,14 @@
-// package 00.matrix;
+package 00.matrix;
+
 // class definition
 // this means that this class can be used outside of the Matrix class
 public class Matrix
 {
-    // making the fieds private garentees that it can only be accessed inside the class
-    // encapsulating a matrix iside the class 
+    // making the fieds private garentees that it can only be accessed inside this class
+    // as well as inherited classes.
+    // encapsulating a matrix inside the class 
     private int rows;
     private int cols;
-    // making a 2 D array to encapsulate the matrix
     private double[][] elements;
 
     public static void main(String[] args)
@@ -26,6 +27,7 @@ public class Matrix
         for(int i=0; i< m3.getRows(); i++)
             for (int j=0; j< m3.getCols(); j++)
                 m3.setElements(i,j,(j+i) * 3);
+                
         System.out.println("Matrix 1: \n" + m1);
         System.out.println("Matrix 2: \n" + m2);
         System.out.println("Matrix 3: \n" + m3);
@@ -156,10 +158,9 @@ public class Matrix
     private double getsum_helper(Matrix other, int start, int end){
         /** Helper function to get the partial sum for matrix multiplication method */
         double sum = 0;
-        int i=0;
-        while(i < this.getCols()){
+        
+        for(int i=0; < this.getCols(); i++){
             sum += this.elements[start][i] * other.elements[i][end];
-            i++;
         }
         return sum;
     }
