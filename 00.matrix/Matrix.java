@@ -10,7 +10,7 @@ public class Matrix
     private int rows;
     private int cols;
     private double[][] elements;
-	
+    
     // accessors are like getters and setters they use the private data that has been encacpsulated
     
     // Accessor
@@ -67,7 +67,7 @@ public class Matrix
                 if(j < this.getCols()-1)
                     ret.append(this.elements[i][j]).append(", ");
                 else
-					ret.append(this.elements[i][j]).append(" ]\n");
+                    ret.append(this.elements[i][j]).append(" ]\n");
             }
         }
         return ret.toString();
