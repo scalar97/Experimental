@@ -59,18 +59,18 @@ public class Matrix
     
     public String toString(){
         /** Returns a string representation of the matrix */
-        String ret="";
+        StringBuilder ret= new StringBuilder();
         
         for(int i = 0; i< this.getRows(); i++){
-            ret += "[ ";
+            ret.append("[ ");
             for(int j = 0; j< this.getCols(); j++){
                 if(j < this.getCols()-1)
-                    ret += this.elements[i][j] + ", ";
+                    ret.append(this.elements[i][j]).append(", ");
                 else
-                    ret += this.elements[i][j] + " ]\n";
+					ret.append(this.elements[i][j]).append(" ]\n");
             }
         }
-        return ret;
+        return ret.toString();
     }
     
     public boolean isSize(Matrix other){
@@ -144,50 +144,3 @@ public class Matrix
         throw new IllegalArgumentException("Matrix incompatible for multiplication");
     }
 }
-
-/* OUTPUT
-
-Matrix 1: 
-[ 2.0, 1.0 ]
-[ 3.0, 0.0 ]
-
-Matrix 2: 
-[ 1.0 ]
-[ 5.0 ]
-
-Matrix 3: 
-[ 0.0, 3.0 ]
-[ 3.0, 6.0 ]
-
-Matrix 1 * Matrix 2: 
-[ 7.0 ]
-[ 3.0 ]
-
-Matrix 1 * Matrix 3: 
-[ 3.0, 12.0 ]
-[ 0.0, 9.0 ]
-
-Matrix 3 + Matrix 1: 
-[ 2.0, 4.0 ]
-[ 6.0, 6.0 ]
-
-Matrix 3 - Matrix 1: 
-[ 0.0, 3.0 ]
-[ 3.0, 6.0 ]
-
-Matrix 2 * 3 (Multiplication by scalar): 
-[ 3.0 ]
-[ 15.0 ]
-
-Matrix 3 and Matrix 1 have the same size:true
-Matrix 3 and Matrix 2 have the same size:false
-Matrix 3 and Matrix 2 are compatible for multiplication:true
-Matrix 2 frist and Matrix 1 second are compatible for multiplication:false
-Matrix 1 is a Square Matrix:true
-Matrix 2 is a Square Matrix:false
-
-Matrix 1's clone:
-[ 2.0, 1.0 ]
-[ 3.0, 0.0 ]
-
-*/
