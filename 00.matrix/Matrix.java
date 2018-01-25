@@ -1,4 +1,4 @@
-package 00.matrix;
+//package 00.matrix;
 
 // class definition
 // this means that this class can be used outside of the Matrix class

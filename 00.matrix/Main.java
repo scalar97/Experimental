@@ -1,4 +1,4 @@
-package 00.matrix;
+//package 00.matrix;
 
 public class Main
 {
