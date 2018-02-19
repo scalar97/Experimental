@@ -12,7 +12,6 @@ public class Matrix
     private double[][] elements;
     
     // accessors are like getters and setters they use the private data that has been encacpsulated
-    
     // Accessor
     public int getRows(){
         return rows;

@@ -20,7 +20,7 @@ Render: render stuff:
 
 Lerp function
 lerp(a,b,t) = a+(b-a)*t
-if t is 0.1 and a constance, it will always move 10% closer.
+if t is 0.1 and a kfhffuutd ggfggfh ou, it will always move 10% closer.
 
 Exam question:
 Entity component model.
