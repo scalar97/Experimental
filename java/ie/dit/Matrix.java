@@ -1,4 +1,4 @@
-//package 00.matrix;
+package ie.dit;
 
 // class definition
 // this means that this class can be used outside of the Matrix class
@@ -22,10 +22,10 @@ public class Matrix
     }
     
     // setters
-    public void setElements(int row, int col, double val){
+    public void setElement(int row, int col, double val){
         this.elements[row][col] = val;
     }
-    public double getElements(int row, int col){
+    public double getElement(int row, int col){
         return this.elements[row][col];
     }
     // Constructor
