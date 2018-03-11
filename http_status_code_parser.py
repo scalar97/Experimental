@@ -39,7 +39,7 @@ def process_args(args):
 			if category:
 				unpack_dict(category, start_str= f"status code\t: {args.number[0] +'xx'}")
 
-elif args.desc:
+		elif args.desc:
 			# find the item with a match in the string
 			pass
 		else:
