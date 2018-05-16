@@ -143,3 +143,8 @@ public class Matrix
         throw new IllegalArgumentException("Matrix incompatible for multiplication");
     }
 }
+
+
+
+//TODO:- find the inverse of the non zero determinant of the matrix, see mathematics 1 and mathematics 2 notes
+
