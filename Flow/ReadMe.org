@@ -2,16 +2,24 @@
 Tracks the amount of glasses of water drunk in a day
 
 ** Aim
-learn Core Graphics by creating custom buttons
+learn Core Graphics by creating custom views
 
 ** Reference Tutotial:
 [[https://www.raywenderlich.com/162315/core-graphics-tutorial-part-1-getting-started][Core Graphics Tutorial Part 1: Getting Started]]
 
 ** Tips learnt
-|-----------------------------------------------+--------------------------------------------|
-| *Description*                                 | *command*                                  |
-|-----------------------------------------------+--------------------------------------------|
-| resolve auto alyout in main.storyboard itself | click view + control drag to parent view + |
-|                                               | select desired constraint                  |
-|-----------------------------------------------+--------------------------------------------|
-|                                               |                                            |
+|-----------------------------------------------------+-----------------------------------------------------------------------|
+| *Description*                                       | *command*                                                             |
+|-----------------------------------------------------+-----------------------------------------------------------------------|
+| Resolve auto alyout in main.storyboard itself      | click view + control drag to parent view +  select desired constraint |
+|-----------------------------------------------------+-----------------------------------------------------------------------|
+| The @IBDesignable flag allows view settings in code | preced the custom class with an *@IBDesigneable* decorator            |
+| to draw themselves in the storyboard                |                                                                       |
+|-----------------------------------------------------+-----------------------------------------------------------------------|
+|                                                     |                                                                       |
+
+
+** Notes
+- Each UIView has a graphic contex in which its graphics are rendered before they are transfered to the hardware.
+- Every drawing done in draw renders in the view's graphic context.
+- 
