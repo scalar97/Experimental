@@ -1,0 +1,17 @@
+** Project Description
+Tracks the amount of glasses of water drunk in a day
+
+** Aim
+learn Core Graphics by creating custom buttons
+
+** Reference Tutotial:
+[[https://www.raywenderlich.com/162315/core-graphics-tutorial-part-1-getting-started][Core Graphics Tutorial Part 1: Getting Started]]
+
+** Tips learnt
+|-----------------------------------------------+--------------------------------------------|
+| *Description*                                 | *command*                                  |
+|-----------------------------------------------+--------------------------------------------|
+| resolve auto alyout in main.storyboard itself | click view + control drag to parent view + |
+|                                               | select desired constraint                  |
+|-----------------------------------------------+--------------------------------------------|
+|                                               |                                            |
