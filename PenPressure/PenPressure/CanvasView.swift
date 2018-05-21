@@ -13,8 +13,8 @@ let π = CGFloat.pi
 class CanvasView: UIImageView {
     
     // Parameters
-    private let defaultLineWidth:CGFloat = 6
-    
+    private let defaultLineWidth:CGFloat = 3
+    private let forceSensitivity : CGFloat = 4.0
     private var drawColor: UIColor = UIColor.red
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -27,7 +27,6 @@ class CanvasView: UIImageView {
         image?.draw(in: bounds)
         
         drawStroke(context: context, touch: touch)
-        
         // Update image
         image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -57,14 +56,16 @@ class CanvasView: UIImageView {
     
     private func lineWidthForDrawing(context: CGContext?, touch: UITouch) -> CGFloat {
         
-        let lineWidth = defaultLineWidth
-        
+        var lineWidth = defaultLineWidth
+        if touch.force > 0 {
+            lineWidth = touch.force * forceSensitivity
+        }
         return lineWidth
     }
     
     func clearCanvas(animated: Bool) {
         if animated {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 self.alpha = 0
             }, completion: { finished in
                 self.alpha = 1
