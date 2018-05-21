@@ -22,7 +22,7 @@
                                 <rect key="frame" x="59" y="139" width="256" height="256"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYy-45-LHq">
-                                        <rect key="frame" x="116" y="87" width="26" height="54"/>
+                                        <rect key="frame" x="115" y="86" width="26" height="54"/>
                                         <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="46"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
