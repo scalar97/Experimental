@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">httpget</string>
+    <string name="name_placeholder">What\'s your name?</string>
+    <string name="centre_text">Hey There!</string>
+    <string name="greet">Greet</string>
+</resources>
