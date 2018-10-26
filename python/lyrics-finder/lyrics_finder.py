@@ -13,9 +13,10 @@ def get_lyrics(url):
 		l_start = '<!-- Usage of azlyrics.com content by any third-party lyrics provider is prohibited by our licensing agreement. Sorry about that. -->'
 		start = l.find(l_start,4096, len(l)) # Move away 4096 bytes as lyrics start far down the page aroud 6000+ bytes on average.
 		end = l.find('<!-- MxM banner -->', start+len(l_start))
-
-		lyrics = soup.title.string.split('Lyrics', 1)[0] + '\n' + l[start + len(l_start):end]
-		return BeautifulSoup(lyrics, 'html.parser').get_text()
+		if start > 0 and end > 0:
+			lyrics = '\n' + soup.title.string.split('Lyrics', 1)[0] + '\n' + l[start + len(l_start):end]
+			return BeautifulSoup(lyrics, 'html.parser').get_text()
+		return 'No results found.'
 	except:
 		raise
 
