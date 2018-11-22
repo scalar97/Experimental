@@ -1,0 +1,9 @@
+gcc -Wall -std=gnu99 -c *.c
+
+outs=(httpClient httpServer httpServerFile)
+
+for file in ${outs[*]}; do
+    gcc -o $file.out $file.o DieWithMessage.o
+done;
+
+rm -f *.o

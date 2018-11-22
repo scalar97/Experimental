@@ -1,0 +1,23 @@
+arp(4)			 - Address Resolution Protocol e.g arp -a
+rarp
+finger(1)		 - user information lookup program e.g finger <ip | hostname> 
+host <ip | hostname>     - DNS lookup utility
+hostname(7)              - host name resolution description
+whois(1)                 - Internet domain name and network number directory service
+traceroute <ip|hostname> - print the route packets take to network host
+ping(8)                  - send ICMP ECHO_REQUEST packets to network hosts
+netstat(1)               - show network status
+curl ifconfig.me	 - show public ip
+dig(1)                   - DNS lookup utility
+nslookup(1)              - query Internet name servers interactively. e.g nslookup <ip | hostname>
+scp(1)                   - secure copy (remote file copy program) e.g scp $file user@targethost:/$path
+w(1)                     - display who is logged in and what they are doing
+nmap			 - Network exploration tool and security/port scanner e.g nmap 127.0.0.1
+route(8)                 - manually manipulate the routing tables
+sftp(1)                  - secure file transfer program
+			   e.g sftp remote_username@public_ip_address, enter passowrd for remote_username,
+			   then use put|get to send|download files, PS: only tried on same network so far.
+telnet(1)                - user interface to the TELNET protocol
+nc(1)                    - arbitrary TCP and UDP connections and listens
+openssl(1)               - OpenSSL command line tool
+ncat(1)                  - Concatenate and redirect sockets
