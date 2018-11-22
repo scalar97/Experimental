@@ -1,12 +1,10 @@
 
 -- GROUP : DT2283GROUP_N
 
-DROP TABLE DESTROY CASCADE CONSTRAINTS PURGE;
 DROP TABLE FinalResults CASCADE CONSTRAINTS PURGE;
 DROP TABLE TestAllocated CASCADE CONSTRAINTS PURGE;
 DROP TABLE StaffSpeciality CASCADE CONSTRAINTS PURGE;
 DROP TABLE TestType CASCADE CONSTRAINTS PURGE;
-DROP TABLE SUBMITTEDLETTERS CASCADE CONSTRAINTS PURGE;
 DROP TABLE Letter CASCADE CONSTRAINTS PURGE;
 DROP TABLE Car CASCADE CONSTRAINTS PURGE;
 DROP TABLE Owner CASCADE CONSTRAINTS PURGE;
@@ -15,82 +13,70 @@ DROP TABLE Center CASCADE CONSTRAINTS PURGE;
 --CREATE STATEMENTS
 
 CREATE TABLE Center (
-	CenterID  Number(7)  primary key,
-	CenterName  VARCHAR2(20) not null,
-	CenterStreet  VARCHAR2(20) not null,
-	CenterCity  VARCHAR2(20) not null
+  CenterID  Number(7)  primary key,
+  CenterName  VARCHAR2(20) not null,
+  CenterStreet  VARCHAR2(20) not null,
+  CenterCity  VARCHAR2(20) not null
 );
 
 CREATE TABLE Staff (
-	StaffEmail  VARCHAR2(64)  PRIMARY KEY,
-	SFName  VARCHAR2(30)  NOT NULL ,
-	SLName  VARCHAR2(40)  NOT NULL ,
-	CenterID NOT NULL REFERENCES Center(CenterID),
-	SLastSignedIn DATE NOT NULL,
-	SROLE VARCHAR2(30) NOT NULL CHECK (SROLE IN ('mechanic', 'supervisor', 'clerk'))
+  StaffEmail  VARCHAR2(64)  PRIMARY KEY,
+  SFName  VARCHAR2(30)  NOT NULL ,
+  SLName  VARCHAR2(40)  NOT NULL ,
+  CenterID NOT NULL REFERENCES Center(CenterID),
+  SLastSignedIn DATE NOT NULL,
+  SROLE VARCHAR2(30) NOT NULL CHECK (SROLE IN ('mechanic', 'supervisor', 'clerk'))
 );
 
 CREATE TABLE Owner(
-	OwnerEmail  varchar2(64) PRIMARY KEY,
-	OwnerFName  VARCHAR2(30) not null,
-	OwnerLName  VARCHAR2(30) not null,
-	OwnerStreet VARCHAR2(30),
-	OwnerCity VARCHAR2(30)
+  OwnerEmail  varchar2(64) PRIMARY KEY,
+  OwnerFName  VARCHAR2(30) not null,
+  OwnerLName  VARCHAR2(30) not null,
+  OwnerStreet VARCHAR2(30),
+  OwnerCity VARCHAR2(30)
 );
 
 CREATE TABLE Car (
-	CarRegNo VARCHAR2(10) PRIMARY KEY,
-	CarDescription VARCHAR2(30)  NOT NULL ,
-	CarManufacturer  VARCHAR2(30)  NOT NULL ,
-	CarDate DATE NOT NULL,
-	OwnerEmail NOT NULL REFERENCES Owner(OwnerEmail)
+  CarRegNo VARCHAR2(10) PRIMARY KEY,
+  CarDescription VARCHAR2(30)  NOT NULL ,
+  CarManufacturer  VARCHAR2(30)  NOT NULL ,
+  CarDate DATE NOT NULL,
+  OwnerEmail NOT NULL REFERENCES Owner(OwnerEmail)
 );
 
 CREATE TABLE Letter (
-	letterID varchar2(20) PRIMARY KEY check(letterID like '%-%-%:%'),
-	letterDate  DATE NOT NULL,
-	CenterID NOT NULL REFERENCES Center(CenterID),
-	CarRegNo NOT NULL REFERENCES Car(CarRegNo)
-);
-
--- CUSTOM TABLE TO GET ALL LETTER SUBMITTED
-CREATE TABLE SUBMITTEDLETTERS (
-	letterID NOT NULL references LETTER(LETTERID),
-	centerID NOT NULL references CENTER(CENTERID),
-	submittedOnDate date default sysdate not null
+  letterID varchar2(20) PRIMARY KEY check(letterID like '%-%-%:%'),
+  letterDate  DATE NOT NULL,
+  CenterID NOT NULL REFERENCES Center(CenterID),
+  CarRegNo NOT NULL REFERENCES Car(CarRegNo) on delete cascade, -- delete letter associated to car when car is destroyed
+  submittedOnDate date -- set to null by default
 );
 
 CREATE Table TestType(
-	TestTypeID varchar2(20) PRIMARY KEY,
-	TestCriticality VARCHAR(10)  NOT NULL CHECK (TestCriticality IN ('high', 'medium', 'low')),
-	TestCriticalityFailDesc  VARCHAR(128)  NOT NULL
+  TestTypeID varchar2(20) PRIMARY KEY,
+  TestCriticality VARCHAR(10)  NOT NULL CHECK (TestCriticality IN ('high', 'medium', 'low')),
+  TestCriticalityFailDesc  VARCHAR(128)  NOT NULL
 );
 
 create table StaffSpeciality(
-	TestTypeID REFERENCES TestType(TestTypeID) on delete cascade,
-	StaffEmail NOT NULL REFERENCES Staff(StaffEmail) on delete cascade,
-	Constraint StaffSpeciality_PK primary key(TestTypeID, StaffEmail)
+  TestTypeID REFERENCES TestType(TestTypeID) on delete cascade,
+  StaffEmail NOT NULL REFERENCES Staff(StaffEmail) on delete cascade,
+  Constraint StaffSpeciality_PK primary key(TestTypeID, StaffEmail)
 );
 CREATE Table TestAllocated(
-	letterID NOT NULL references Letter(letterID),
-	TestTypeID NOT NULL references TestType(TestTypeID),
-	StaffEmail NOT NULL REFERENCES Staff(StaffEmail) on delete cascade, -- don't allocate to deleted mechanics
-	TestComments VARCHAR(256),
-	TestStatus  VARCHAR(10) CHECK (TestStatus IN ('fail', 'pass', 'warning')),
-	Constraint TestAllocated_PK primary key(TestTypeID,letterID,StaffEmail)
+  letterID NOT NULL references Letter(letterID) on delete cascade,
+  TestTypeID NOT NULL references TestType(TestTypeID),
+  StaffEmail NOT NULL REFERENCES Staff(StaffEmail) on delete cascade, -- don't allocate to deleted mechanics
+  TestComments VARCHAR(256),
+  TestStatus  VARCHAR(10) CHECK (TestStatus IN ('fail', 'pass', 'warning')),
+  Constraint TestAllocated_PK primary key(TestTypeID,letterID,StaffEmail)
 );
 create table FinalResults (
-	CarRegNo NOT NULL REFERENCES Car(CarRegNo),
-	Supervisor  NOT NULL REFERENCES Staff(StaffEmail),
-	FinalScore  VARCHAR2(20) not null CHECK (FinalScore IN ('fail', 'pass', 'warning')),
-	ResultDate TIMESTAMP default CURRENT_DATE,
-	Constraint FinalResults_PK primary key(CarRegNo,ResultDate)
-);
-
-create table DESTROY (
-	CarRegNo NOT NULL REFERENCES Car(CarRegNo),
-	DestroyDate DATE NOT NULL,
-	CONSTRAINT DESTROY_PK PRIMARY KEY (CarRegNo, DestroyDate)
+  CarRegNo NOT NULL REFERENCES Car(CarRegNo) on delete cascade, -- delete past results of car when car is destroyed.
+  Supervisor  NOT NULL REFERENCES Staff(StaffEmail),
+  FinalScore  VARCHAR2(20) not null CHECK (FinalScore IN ('fail', 'pass', 'warning')),
+  ResultDate TIMESTAMP default CURRENT_DATE,
+  Constraint FinalResults_PK primary key(CarRegNo,ResultDate)
 );
 
 drop sequence sequence_center;
@@ -161,77 +147,73 @@ INSERT INTO Car VALUES ('US-002','Mazda','MZ', '17-NOV-2013','frneyman@em.com');
 INSERT INTO Car VALUES ('IE-000','Suzuki Swift','Suzuki', '10-SEP-2010','lhuber@em.com');
 
 
-INSERT INTO  LETTER  VALUES ('18-NOV-18:EU-002', '18-NOV-18', 2, 'EU-002'); -- WILL PASS THE TEST
-INSERT INTO  LETTER  VALUES ('18-NOV-18:IE-000', '18-NOV-18', 3, 'IE-000'); -- WILL FAIL THE TEST ONCE
-INSERT INTO  LETTER  VALUES ('18-NOV-18:US-002', '18-NOV-18', 2, 'US-002'); -- WILL HAVE UNAVAILABLE MECHANIC PRESENT TODAY
-INSERT INTO  LETTER  VALUES ('18-NOV-18:EU-001', '18-NOV-18', 3, 'EU-001'); -- WILL FAIL THE TEST 3 TIMES
+INSERT INTO  LETTER  VALUES ('18-NOV-18:EU-002', '18-NOV-18', 2, 'EU-002',default); -- WILL PASS THE TEST
+INSERT INTO  LETTER  VALUES ('18-NOV-18:IE-000', '18-NOV-18', 3, 'IE-000',default); -- WILL FAIL THE TEST ONCE
+INSERT INTO  LETTER  VALUES ('18-NOV-18:US-002', '18-NOV-18', 2, 'US-002',default); -- WILL HAVE UNAVAILABLE MECHANIC PRESENT TODAY
+INSERT INTO  LETTER  VALUES ('18-NOV-18:EU-001', '18-NOV-18', 3, 'EU-001',default); -- WILL FAIL THE TEST 3 TIMES
 
 -- ENTER TWO FAIL TESTS for latest car
-INSERT INTO  LETTER  VALUES ('18-APR-18:EU-001', '18-APR-18', 3, 'EU-001');
-INSERT INTO  LETTER  VALUES ('01-JAN-18:EU-001', '01-JAN-18', 3, 'EU-001');
+INSERT INTO  LETTER  VALUES ('18-APR-18:EU-001', '18-APR-18', 3, 'EU-001','24-APR-18');
+INSERT INTO  LETTER  VALUES ('01-JAN-18:EU-001', '01-JAN-18', 3, 'EU-001','19-JAN-18');
 
 -- MARK THESE AS FAIL
 INSERT INTO  FinalResults  VALUES ('EU-001', 'jmeyer@staff.ie','fail', '25-APR-18');
 INSERT INTO  FinalResults  VALUES ('EU-001', 'jmeyer@staff.ie','fail', '18-JAN-18');
 
-insert into SUBMITTEDLETTERS values('18-NOV-18:EU-002', 2, default);
-insert into SUBMITTEDLETTERS values('18-NOV-18:IE-000', 3, default);
-insert into SUBMITTEDLETTERS values('18-NOV-18:US-002', 2, default);
-insert into SUBMITTEDLETTERS values('18-NOV-18:EU-001', 3, default);
+-- SUBMIT FEW LETTERS
+update Letter set
+SubmittedOnDate = sysdate
+where CarRegNo IN ('EU-002', 'EU-001', 'US-002', 'IE-000') and SubmittedOnDate is null;
 
 -- assign specialities to Mechanics at random
 
 declare
-	counter number; -- a random number of Test to assign to a mechanic
-	TestType_count number; -- the total number of specialities available
+  counter number; -- a random number of Test to assign to a mechanic
+  TestType_count number; -- the total number of specialities available
 begin
-	select count(*) into TestType_count from TestType; -- get all Test available
-	for mechanic in (select StaffEmail from Staff where SROLE='mechanic') loop -- get all mechanic email
-		-- every mechanic will have minimum one skill, thus random from 1 to the tol number
-		counter := ceil(dbms_random.value(1, TestType_count));
-		-- shuffle the Type table so that the skills will be uniform
-		for t in (select distinct TestTypeID from TestType ORDER BY dbms_random.value) loop
-			if counter > 0 then
-				begin
-					insert into StaffSpeciality values (t.TestTypeID, mechanic.StaffEmail);
-				end;
-				counter := counter -1;
-			else
-				exit; -- exit if counter random specialities have been assigned to current mechanic
-			end if; -- end insertion
-		end loop; -- end assigning speciality
-	end loop;   -- end looping through mechanics
-	commit;
-	exception
-	when others then
-	rollback;
-	raise;
+  select count(*) into TestType_count from TestType; -- get all Test available
+  for mechanic in (select StaffEmail from Staff where SROLE='mechanic') loop -- get all mechanic email
+     -- every mechanic will have minimum one skill, thus random from 1 to the tol number
+     counter := ceil(dbms_random.value(1, TestType_count));
+     -- shuffle the Type table so that the skills will be uniform
+     for t in (select distinct TestTypeID from TestType ORDER BY dbms_random.value) loop
+        if counter > 0 then
+           begin
+              insert into StaffSpeciality values (t.TestTypeID, mechanic.StaffEmail);
+           end;
+           counter := counter -1;
+        else
+           exit; -- exit if counter random specialities have been assigned to current mechanic
+        end if; -- end insertion
+     end loop; -- end assigning speciality
+  end loop;   -- end looping through mechanics
+  commit;
+  exception
+  when others then
+  rollback;
+  raise;
 end;
 commit;
-
 -- end assigning mechanics to speciality transaction
 
 grant ALL PRIVILEGES on Center to jfahringer, czhang, tzihindula; --all
 
 grant ALL PRIVILEGES on Staff to jfahringer, czhang, tzihindula; --all
 
-grant ALL PRIVILEGES on Car to jfahringer, czhang, tzihindula;	-- all
+grant ALL PRIVILEGES on Car to jfahringer, czhang, tzihindula; -- all
 
 grant ALL PRIVILEGES on Owner to jfahringer, czhang, tzihindula; -- all
 
 grant ALL PRIVILEGES on Letter to jfahringer, czhang, tzihindula; -- all
 
-grant ALL PRIVILEGES on sequence_center to czhang; -- only clerk
+grant ALL PRIVILEGES on sequence_center to czhang; -- only clerk needs to add a center etc.
 
-grant ALL PRIVILEGES on StaffSpeciality to jfahringer, czhang, tzihindula; --all
+grant select on StaffSpeciality to jfahringer, czhang, tzihindula; -- everyone can check what who is specialised in
 
-grant ALL PRIVILEGES on TestAllocated to jfahringer, tzihindula; -- only supervisor and mechanic
+grant ALL PRIVILEGES on TestAllocated to jfahringer, tzihindula; -- only supervisor and mechanic can edit this
 
-grant ALL PRIVILEGES on TestType to jfahringer, czhang, tzihindula;	-- all
+grant select on TestType to jfahringer,czhang, tzihindula; -- eveyone can view what testtypes are there
 
-grant ALL PRIVILEGES on SubmittedLetters to czhang, tzihindula; -- only clerk and supervisor
+grant select on FinalResults to jfahringer, czhang; --clerk and mechanics can only view
 
-grant ALL PRIVILEGES on DESTROY to czhang, tzihindula; -- only clerk and supervisor
-
-grant ALL PRIVILEGES on FinalResults to jfahringer, czhang, tzihindula; --all
-
+grant ALL PRIVILEGES on FinalResults to tzihindula; --Supervisor can update this table

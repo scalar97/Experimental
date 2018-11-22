@@ -9,7 +9,7 @@
 -- Methods and tables private to the supervisor role
 DROP VIEW IS_AVAILABLE; -- gives all staff that are available today i.e signed in
 drop view front_door; -- finished serviced cars
-
+drop view SUBMITTEDLETTERS;  -- view submitted letters
 
 -- IMPORTANT: THIS AVAILABILITY IS MEASURED IN TERM OF THE LAST TIME A SIGNED IN. i.e RECORDED THEIR DATE
 -- mechanics have to sign in on that day to update this table
@@ -19,7 +19,9 @@ select STAFFEMAIL, CENterID , SROLE
 	from dt2283group_n.STAFF
     where ((TRUNC(SysDate))=TRUNC(SlastSignedIn));
 
-
+CREATE view SUBMITTEDLETTERS as
+	select * from dt2283group_n.LETTER
+	    where ((TRUNC(SysDate)) - TRUNC(submittedOnDate)) =0;
 
 -- UTILITY: GET A RANDOM STAFF AVAILABLE TODAY WITH A SPECIFIC SPECIALITY FROM A SPECIFIC TESTCENTER
 -- My algorithm to assign a staff was to choose any staff at random from available staff today that is specialised in
@@ -59,13 +61,10 @@ create or replace function SUBMIT_LETTER RETURN number IS
 begin
 	letter_id := trim(upper(letter_date||':'||car_reg));
 	select CENTERID into letter_center from dt2283group_n.LETTER where LETTERID=letter_id; -- read the enter value shown on the letter
-	INSERT INTO dt2283group_n.SUBMITTEDLETTERS VALUES(letter_id,letter_center, sysdate);
+	update dt2283group_n.LETTER set submittedOnDate = sysdate where letterID=letter_id;
 	commit;
 	return 0;
 EXCEPTION
-	WHEN DUP_VAL_ON_INDEX THEN
-		DBMS_OUTPUT.PUT_LINE('Letter already submitted.');
-        raise;
 	WHEN NO_DATA_FOUND THEN
 		DBMS_OUTPUT.PUT_LINE('Invalid letter.');
         raise;
@@ -130,7 +129,7 @@ CREATE or REPLACE function ALLOCATE_SUBMITTED(center_id dt2283group_n.CENTER.cen
 AS
 BEGIN
 	-- allocate mechanics to letters that were submitted today
-	FOR l in ( select LetterID from (select distinct letterID from dt2283group_n.SUBMITTEDLETTERS
+	FOR l in ( select LetterID from (select distinct letterID from SUBMITTEDLETTERS
         WHERE centerID = center_id)
 	) LOOP
 		begin
@@ -198,14 +197,8 @@ begin
 		-- destroy the car if it has now failed 3 times or more by adding it to Destroy table
 		if fail_count_year >= 2 then
             begin
-            	-- NOTE: this car could as well be deleted from the databases and have all constraints dropped
-            	-- The description is not explicit on what 'destroy' means, therefore hard to predict.
-            	-- I decided to keep all destroyed cars in a Destroy table for logging purposes?
-            	-- This gives more option like, removing all cars in the destroy table after N days? Hmm?
-            	-- But maybe the same car cannot be re-registered and therefore unnecessary to keep its data?
-            	-- Also data protection..etc? but that's a different story.
-
-                insert into dt2283group_n.DESTROY values(car_reg , sysdate);
+            	-- delete the car everywhere
+            	delete from dt2283group_n.car where carRegNo=car_reg; -- this will purge all reference (as set to on delete cascade everywhere)
                 commit;
             exception
                 when others then
@@ -214,7 +207,7 @@ begin
                 raise;
             end;
             -- write outstanding letter to car's owner
-			detailed_score := ' this is the 3rd failure, therefore, it is be confiscated and DESTROYED. Failure cause :'|| fail_cause;
+			detailed_score := ' This is the 3rd failure, therefore, it is be confiscated and DESTROYED. Failure cause :'|| fail_cause;
 			commit;
 		else
 			-- not the 3rd fail, schedule 3 week appointment in this same center
@@ -227,6 +220,7 @@ begin
                 rollback;
                 raise;
             end;
+
 		end if;
 	-- if warning count equals pass count then the score is warning!
 	elsif warning >= pass then
@@ -235,31 +229,31 @@ begin
 		score := 'pass';
 	end if;
 
-	-- save the test results
-    begin
-       insert into dt2283group_n.FINALRESULTS values (car_reg, superv_id, score, default);
+	if (score != 'fail') OR (score = 'fail' and fail_count_year != 2) then
+		-- save the test results, otherwise the car was destroyed, and all references cascaded
+		begin
+		   insert into dt2283group_n.FINALRESULTS values (car_reg, superv_id, score, default);
 
-       -- mark this letter as resolved by removing the car from TestAllocated
+		   -- mark this letter as resolved by removing the car from TestAllocated
 
-       -- these two updates are in same transaction because it doesn't make sense in real life
-       -- to mark the car as resolved if its resolution data cannot be accessed.
-       -- If the result cannot be queried, IT DIDN'T HAPPEN.
-       -- only if the result is present then delete it from TestAllocation.
+		   -- these two updates are in same transaction because it doesn't make sense in real life
+		   -- to mark the car as resolved if its resolution data cannot be accessed.
+		   -- If the result cannot be queried, IT DIDN'T HAPPEN.
+		   -- only if the result is present then delete it from TestAllocation.
 
-       -- Similarly if the car cannot be deleted from TestAllocation then there is something
-       -- to resolve about that car, thus, rollback this whole transaction immediately
-       delete from dt2283group_n.TESTALLOCATED where LETTERID = letter_id;
-       commit;
-    exception
-        when others then
-        DBMS_OUTPUT.PUT_LINE('The results for car '|| car_reg||' could not be stored,thus, car not deallocated.');
-        rollback;
-        raise;
-    end;
-
+		   -- Similarly if the car cannot be deleted from TestAllocation then there is something
+		   -- to resolve about that car, thus, rollback this whole transaction immediately
+		   delete from dt2283group_n.TESTALLOCATED where LETTERID = letter_id;
+		   commit;
+		exception
+			when others then
+			DBMS_OUTPUT.PUT_LINE('The results for car '|| car_reg||' could not be stored,thus, car not deallocated.');
+			rollback;
+			raise;
+		end;
+	end if;
 	commit; -- Commit everything. We are successfully done here.
-
-	return  'The car :'|| car_reg || ' scored:' || upper(score) || '.'|| detailed_score;
+	return  'The car :'|| car_reg || ' scored:' || upper(score) || '. '|| detailed_score;
 exception
 	when others then
 	rollback;-- rollback the whole transaction if anything whatsoever goes wrong

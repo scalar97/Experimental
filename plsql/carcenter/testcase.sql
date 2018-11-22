@@ -9,8 +9,6 @@
 
 -- setup
 
-
-
 select * from dt2283group_n.staff;
 
 
@@ -27,15 +25,28 @@ begin
 		set SlastSignedIn = SlastSignedIn + treshold ;
 		commit;
 	end;
-	-- mark nocar as destroyed
-	delete from dt2283group_n.destroy;
-	delete from dt2283group_n.FINALRESULTS;
+	delete from dt2283group_n.car where carregno='EU-001';
+
+	-- Insert the car that will be beleted
+	INSERT INTO dt2283group_n.Car VALUES ('EU-001','VW Polo','VW', '16-NOV-2013','mabradley@em.com');
+	-- send the letter(s) to this car, past and present
+	INSERT INTO  dt2283group_n.LETTER  VALUES ('18-NOV-18:EU-001', '18-NOV-18', 3, 'EU-001', default); -- WILL FAIL THE TEST 3 TIMES
+	INSERT INTO  dt2283group_n.LETTER  VALUES ('18-APR-18:EU-001', '18-APR-18', 3, 'EU-001', default);
+	INSERT INTO  dt2283group_n.LETTER  VALUES ('01-JAN-18:EU-001', '01-JAN-18', 3, 'EU-001', default);
+
+	-- submit the letter
+	update dt2283group_n.LETTER set
+	SubmittedOnDate = sysdate
+	where CarRegNo IN ('EU-002', 'EU-001', 'US-002', 'IE-000') and SubmittedOnDate is null;
 	-- Create two dummy 'previously failed cars'
+	delete from dt2283group_n.FinalResults;
+
 	INSERT INTO  dt2283group_n.FinalResults  VALUES ('EU-001', 'jmeyer@staff.ie','fail', '25-APR-18');
 	INSERT INTO  dt2283group_n.FinalResults  VALUES ('EU-001', 'jmeyer@staff.ie','fail', '18-JAN-18');
-	-- deallocate all currently allocated cars, afterall i am the sup :P
+
+	-- deallocate all currently allocated cars
 	delete from DT2283GROUP_N.TESTALLOCATED;
-	-- Undo the update made by 3 weeks upppointment
+	-- Undo the update made by 3 weeks appointment
 	update dt2283group_n.letter set letterdate = '18-NOV-18' where letterID = '18-NOV-18:IE-000';
 	-- Done 👻
 end;
@@ -50,16 +61,15 @@ select * from dt2283group_n.STAFFSPECIALITY;
 
 
 -- view Owner's submit the letter, this simulates the owner role.
-select * from dt2283group_n.SUBMITTEDLETTERS;
+select * from SUBMITTEDLETTERS;
 
 
 --  check if any mechanics has been allocated (NONE YET)
 select * from dt2283group_n.TestAllocated;
 
-
 -- allocate mechanics in CENTERS THAT HAVE LETTERS SUBMITTED (SUPERVISOR ROLE)
 begin
-	for c in (select distinct centerID from dt2283group_n.SUBMITTEDLETTERS) loop
+	for c in (select distinct centerID from SUBMITTEDLETTERS) loop
         DBMS_OUTPUT.PUT_LINE(ALLOCATE_SUBMITTED(c.centerID));
     end loop;
     commit;
@@ -112,10 +122,9 @@ select * from FRONT_DOOR;
 
 -- Cars are at the front door, no results has been calculated yet.
 select * from DT2283GROUP_N.FINALRESULTS;
-select * from DT2283GROUP_N.destroy;
 -- the car that filed once should now have 0 weeks appointment
-select 'The letter 18-NOV-18:EU-001 was submitted '|| ceil((sysdate - submittedondate) ) ||' days away from today.' schedule
-from DT2283GROUP_N.submittedletters where letterID='18-NOV-18:EU-001'; -- follow the 3 weeks rescheduling
+select 'The letter 18-NOV-18:EU-001 was submitted '|| round((sysdate - submittedondate) ) ||' days away from today.' schedule
+from submittedletters where letterID='18-NOV-18:IE-000'; -- follow the 3 weeks rescheduling
 
 
 -- now update the final database, this will delete the car with 2 fails and schedule a 3 weeks appointment with failed once
@@ -156,11 +165,4 @@ select * from DT2283GROUP_N.FINALRESULTS;
 
 -- the car that filed once should now have 3 weeks appointment
 select 'The letter 18-NOV-18:EU-001 has been rescheduled ' || ceil((letterdate - sysdate)/7 ) ||' weeks away from today.' schedule
-from DT2283GROUP_N.letter where letterID='18-NOV-18:EU-001'; -- follow the 3 weeks rescheduling
-
--- destroy table should now contain this car.
--- the destroyed table could as well be a view, as it is a sort of duplicate of the data in FinalResults
--- Unless destroyed cars are deleted from every table and all references are lost
--- But what something comes up and the center wants to retrieve data about that car?
--- it might be handy to have a way of coming back to it?
-select * from DT2283GROUP_N.destroy;
+from DT2283GROUP_N.letter where letterID='18-NOV-18:IE-000'; -- follow the 3 weeks rescheduling
