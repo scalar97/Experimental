@@ -1,0 +1,3 @@
+# get all ufo sights from London
+London = db.cities.findOne({city_name: 'London'})
+london_ufos = db.ufos.find({_id: {"$in": London.ufos}}).toArray()

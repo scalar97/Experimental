@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home Page</title>
+		<meta charset="UTF-8">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="Assets/CSS/site.css">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<meta name="description" content="sema is a network provider website where customers can buy top up, buy phones and their accessories, activate their sim cards, and, join the community, or sign up. Sema offers discount codes to its registered customers. Sema also organises activities every week in order to keep their worlds closer.">
+
+		<meta name="keywords" content="sema,phone,topup">
+
+		<script type="text/javascript" src="Assets/JavaScript/site.js"></script>
+	</head>
+	<body onload="rotate_picts();">
+		<header id="TOP">
+			<div id="header_size">
+				<div id="top_header">
+					<ul><li>
+						<a href="index.html">Sema home</a></li><li>
+						<a href="help.html">help</a></li><li>
+						<a  href="top_up.html">Top-up</a></li><li>
+						<a  href="cart.html" ><i class="fa fa-shopping-cart"></i> Cart</a></li>
+					</ul>
+				</div>
+				<div id="log_in_bar">
+					<ul><li>
+						<a id="log_in" href="login.html">Log-in</a></li><li>
+						<a href="sign_up.html">Sign-up</a></li>
+					</ul>
+				</div>
+				<div id="navigation_bar">
+					<a href="index.html" ><img src="Assets/Images/sema_logo.png" alt="Sema logo"/></a>
+					<nav><ul><li class="special"><a class="option" href="shop.html">Shop</a></li>
+						<li class="special"><a class="option"  href="Community.html">Community</a></li>
+						<li class="special"><a class="option" href="Contact.html">Contact</a></li>
+						<li><form role="search" method="get">
+						<input type="text" name="search_bar" value="Search..."><a id="search_icon" href="" onclick=""><i class="fa fa-search"></i>
+						</a></form></li>
+					</ul></nav>
+				</div>				
+				<div id="home_slider"><img id="rotator" src="Assets/Images/pict1.svg" alt="slider"></div>
+			</div>
+		</header>
+		<div id="body_content" class="#PHONE">
+			<div class="container">
+				<h1>iPhone 6s</h1>
+				<img class="main_image" src="Assets/Images/iphone1.png" alt="I phone 6s"/>
+				<div>
+					<img src="Assets/Images/iphone2.png" alt="I phone 6s"/>
+					<img src="Assets/Images/iphone3.png" alt="I phone 6s"/>
+					<p class="price_tag">Was <b class="price_tag_before">€999.99</b> , Now <b class="price_tag_now">€99.99</b></p>
+					<form action="add_to_cart.html">
+						<button class="buy_now_button" type="submit">Buy Now <i class="fa fa-angle-right"></i></button>
+					</form>
+					
+				</div>
+			</div>
+			<div class="container">
+				<h1>Samsung Galaxy <i>Note4</i></h1>
+				<img class="main_image" src="Assets/Images/note41.png" alt="Galaxy Note 4"/>
+				<div>
+					<img src="Assets/Images/note42.png" alt="Galaxy note 4"/>
+					<img src="Assets/Images/note44.png" alt="Galaxy note 4"/>
+					<p class="price_tag">Was <b class="price_tag_before">€659.99</b> , Now <b class="price_tag_now">€659.95</b></p>
+					<form class= "buy_now" onmouseover="out_of_stock();">
+						<button class="buy_now_button" type="submit">Buy Now <i class="fa fa-angle-right"></i></button>
+					</form>
+				</div>
+			</div>
+			<div class="container">
+				<h1>Sony Xperia X</h1>
+				<img class="main_image" src="Assets/Images/xperia1.png" alt="Xperia X"/>
+				<div>
+					<img src="Assets/Images/xperia2.png" alt="Xperia X"/>
+					<img src="Assets/Images/xperia3.png" alt="Xperia X"/>
+					<p class="price_tag">Was <b class="price_tag_before">€699.99</b> , Now <b class="price_tag_now">€599.99</b></p>
+					<form class= "buy_now" onmouseover="out_of_stock();">
+						<button class="buy_now_button" type="submit" >Buy Now <i class="fa fa-angle-right"></i></button>
+					</form>
+				</div>
+			</div>
+			<div class="container">
+				<h1>Watches</h1>
+				<img class="main_image" src="Assets/Images/watch1.png" alt="iWatch"/>
+				<div>
+					<img src="Assets/Images/watch2.png" alt="Sony Watch"/>
+					<img src="Assets/Images/watch3.png" alt="Samsung Smart Watch"/>
+					<p class="price_tag"><b>Members get 10% Off</b></p>
+					<form name= "learn_more" action="community.html">
+						<button class="buy_now_button" type="submit">Learn more <i class="fa fa-angle-right"></i></button>
+					</form>
+				</div>
+			</div>
+			<div class="container">
+				<h1>Earphones</h1>
+				<img class="main_image" src="Assets/Images/earphone1.png" alt="Audio technica"/>
+				<div>
+					<img src="Assets/Images/earphone2.png" alt="Beats Solo"/>
+					<img src="Assets/Images/earphone3.png" alt="Apple earbuds"/>
+					<p class="price_tag"><b>Members get 10% Off</b></p>
+					<form name= "learn_more" action="community.html">
+						<button class="buy_now_button" type="submit">Learn more <i class="fa fa-angle-right"></i></button>
+					</form>
+				</div>
+			</div>
+			<div class="container">
+				<h1>Accessories</h1>
+				<label>Selfie Stick</label><img class="main_image" src="Assets/Images/accessory1.png" alt="Selfie stick"/>
+				<div>
+					<img class="main_image" src="Assets/Images/accessory2.png" alt="Phone Cases"/>
+					<img class="main_image" src="Assets/Images/accessory3.png" alt="Screen protectors"/>
+					<p class="price_tag"><b>Members get 10% Off</b></p>
+					<form name= "learn_more" action="community.html">
+						<button class="buy_now_button" type="submit">Learn more <i class="fa fa-angle-right"></i></button>
+					</form>
+				</div>
+			</div>		
+		</div>
+		<div id="back_to_top">
+			<a href="TOP"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</a>
+		</div>
+		
+		<footer>
+			<div id="links">
+				<section class="footer_link">
+						<ul>
+							<li><h3>About Sema</h3></li>
+							<li><a href="#">Store Locator</a></li>
+							<li><a href="#">Terms and Conditions</a></li>
+							<li><a href="#">Carrers</a></li>
+							<li><a href="#">Cookies</a></li>
+							<li><a href="#">Site-map</a></li>
+						</ul>
+				</section>
+				<section class="footer_link">
+						<ul>
+							<li><h3>Products</h3></li>
+							<li><a href="#">Phones</a></li>
+							<li><a href="#">Tablets</a></li>
+							<li><a href="#">Smart Watches</a></li>
+							<li><a href="#">Earphones</a></li>
+							<li><a href="#">Fiber</a></li>
+							<li><a href="#">Landline</a></li>
+							<li><a href="#">Goggles</a></li>
+							<li><a href="#">Other Accessories</a></li>
+						</ul>
+				</section>
+				<section class="footer_link">
+						<ul>
+							<li><h3>MySema</h3></li>
+							<li><a href="#">Log-in</a></li>
+							<li><a href="#">Sign-up</a></li>
+							<li><a href="#">Customer Services</a></li>
+						</ul>
+				</section>
+				<section class="footer_link">
+						<ul>
+							<li><h3>Community</h3></li>
+							<li><a href="#">Join Today</a></li>
+							<li><a href="#">Upcoming Events</a></li>
+							<li><a href="#">Annual Sema Marathon</a></li>
+							<li><a href="#">Charity Events</a></li>
+							<li><a href="#">The Great Great Run</a></li>
+							<li><a href="#">Christmas Events</a></li>
+							<li><a href="#">Camping</a></li>
+							<li><a href="#">Barbeques</a></li>
+							<li><a href="#">Weekly Calender</a></li>
+						</ul>
+				</section>
+				<section class="footer_link">
+						<ul>
+							<li><h3>Quick Links</h3></li>
+							<li><a href="index.html">Shop now</a></li>
+							<li><a href="sign_up.html">Sign up today</a></li>
+							<li><a href="activate_my_sim.html">Activate my sim</a></li>
+							<li><a href="community.html">About the community</a></li>
+							<li><a href="add_to_cart.html">View cart</a></li>
+						</ul>
+				</section>
+			</div>
+			<div id="social">
+				<h2>Stay in touch</h2>
+					<a href="#"><img src="Assets/Images/facebook.svg" alt="Facebook"/></a>
+				<a href="#"><img src="Assets/Images/twitter.svg" alt="Twitter"/></a>
+				<a href="#"><img src="Assets/Images/youtube.svg" alt="YouTube"/></a>
+				<p>Irish | English | Español | Français | 体中文</p>
+			</div>
+			<div id="copy_right">
+			<p>Sema mobile ltd. Registered in Dublin, Ireland. Registration Number 000000. Registered Office: 1 This avenue, This Road, Dublin 1. <br>All Rights Reserved<br>&copy; 1910–2016
+			</p>
+			</div>
+		</footer>
+	</body>
+</html>

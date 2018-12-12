@@ -1,0 +1,39 @@
+@import url('/library/home/css/index.css');
+
+#advanced{
+	width: 50%;
+	margin: auto;
+	margin-top: 3%;
+	background-color: rgba(240,240,240,.2);
+}
+#advanced{
+	margin-top: 0;
+	padding: 1%;
+	margin-bottom: 2%;
+}
+#adv{
+	margin-bottom: 0%;
+}
+
+#advanced label span{
+	padding-bottom: 1.5vh;
+	display: inline-table;
+	width: 35%;
+}
+
+#advanced label input{
+	width: 50%;
+	padding: 1px 5px;
+	border: 1px solid rgba(184,185,190,0.2);
+}
+#advanced select{
+	width: 50%;
+	padding: 1%;
+	color: white;
+	background:rgb(150,220,0);
+	font-weight: bold;
+	font-size: 1em;
+	outline:0px;
+	border:none;
+	border-radius: 5px 5px 0px 5px;
+}

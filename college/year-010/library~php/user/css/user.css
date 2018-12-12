@@ -1,0 +1,162 @@
+
+@import url('/library/home/css/index.css');
+
+body{
+	width: 100vw;
+}
+#container{
+	width: 70%;
+	margin: auto;
+}
+
+#logo_bar{
+	width: 100vw;
+	height: 10%;
+	margin: 0px;
+	display:inline-block;
+	text-align:center;
+	background:#2ab3b7;
+}
+#logo_bar a{
+	color:rgba(42,179,183,.9);
+	font-weight:bold;
+}
+
+#logo_bar #logo img{
+	width: 4%;
+	height: 3%;
+	margin-top: 1.5%;
+}
+#logo_bar p{
+	float :left;
+	margin: 3% 3px .4% .2%;
+	background: white;
+	padding: .1% 2%;
+	font-weight: bold;
+	font-style: italic;
+}
+#bar_header{
+	width:70vw;
+	margin:auto;
+	text-align: right;
+}
+#bar_header  ul{
+	text-align:;
+	display:inline-block;
+	margin-bottom: 7%;
+}
+
+#bar_header ul li{
+	display:inline-block;
+	text-decoration: none;
+	border-right: .5px solid gray;
+	margin: 2%;
+	padding: 2%;
+}
+#bar_header ul a{
+	display:inline-block;
+	text-decoration: none;
+	color: #bf2345;
+}
+#user_footer{
+	display: flex;
+	text-align: center;
+	margin-top: 9%;
+}
+
+#user_footer ul{
+	text-align: center;
+	display: flex;
+	justify-content: space-between;
+	width: 60%;
+	margin:auto;
+	margin-top: 3%;
+}
+
+#user_footer ul li{
+	display: inline-flex;
+}
+
+#user_footer ul li a{
+	display: inline-flex;
+	text-decoration: none;
+	color: rgb(0,130,130);
+	font-weight: bold;
+}
+#user_footer ul li:hover{
+	color: #000;
+}
+
+footer{
+	background: white;
+	text-align: center;
+	font-size:.9em;
+	font-family: monospace;
+	font-weight: bold;
+	margin-top: .5%;
+}
+
+#result_table{
+	text-align: center;
+	margin-bottom: 3em;
+}
+#result_table table{
+	border: 1px solid gray;
+	text-align: left;
+	width: auto;
+	margin: auto;
+	margin-top:1em;
+	padding: .5em 2em;
+	position: relative;
+	border-collapse: collapse;
+}
+
+#result_table table td, #result_table table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+
+}
+#result_table table tr:nth-child(even){background-color: #f2f2f2;}
+#result_table table tr:hover {background-color: rgba(240,240,240,.5);}
+
+#result_table table th {
+    text-align: left;
+    background-color: rgb(170,200,200);
+    height: 1%;
+    color: white;
+    padding: .5% 3%;
+
+}
+#result_table table .reserve, #result_table table .reserved ,#result_table table .cancel{
+	width: 100%;
+	border-radius: 5px;
+	height: 100%;
+	color:white;
+}
+#result_table table .reserve{
+	background: green;
+	cursor: pointer;
+}
+#result_table table .reserved{
+	background: red;
+}
+#result_table table .cancel{
+	background: rgb(200,150,0);
+}
+
+#result_table p span{
+	background: orange;
+	padding: 0% .5%;
+}
+#search_form{
+	width: 70%;
+	margin: auto;
+	text-align: center;
+	margin-top: 0%;
+	margin-bottom: 2%;
+}
+
+#result_table a{
+	margin: 2px;
+	color: 
+}

@@ -1,0 +1,81 @@
+@import url('/library/home/css/index.css');
+#container{
+	background-image: url('/library/signup/media/background.png');
+	filter: blur(45px);
+	height: 100vh;
+}
+body{
+	text-align: center;
+}
+#sign_up{
+	z-index: 10;
+	position: absolute;
+	width: 27%;
+	height: 40%;
+	margin: 5% 25% 25% 20%;
+	align-self: center;S
+	margin:auto;
+	top: 1%;
+	padding: 1%;
+}
+
+#sign_up div{
+	background-color: rgba(255,255,255,0.9);
+	border-radius: 5px;
+	padding: 3% 0;
+}
+#sign_up button{
+	width: 30%;
+	padding: 0.3em;
+	border-radius: 5px;
+	margin-top: 5%;
+	cursor:pointer;
+	background-color:red;
+	color:white;
+}
+
+#sign_up button:hover{
+	background-color: #2ab;
+	color:white;
+}
+
+#keep_session{
+	width: 10px;
+	height: 4px;
+}
+#sign_up input{
+	height: 2em;
+	width: 19em;
+	box-shadow: 2px 2px 1px #ddd;
+}
+
+#sign_up div:nth-child(2) input{
+	width: 70%;
+	height: .5em;
+    padding: 12px 20px;
+    margin: 1.5% 0;	
+}
+
+#sign_up div:nth-child(2),  #sign_up div:nth-child(3){
+	border-radius: 0 0 5px 5px;
+}
+
+
+
+#sign_up div:nth-child(1){
+	border-radius: 5px 5px 0 0;
+}
+
+.input_errors::-webkit-input-placeholder{
+	color: red;
+}
+
+
+footer{
+	background: white;
+	text-align: center;
+	font-size:.9em;
+	font-family: monospace;
+	font-weight: bold;
+	padding-top: 7%;
+}

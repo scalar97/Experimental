@@ -1,0 +1,130 @@
+
+-- Example illustrating pre- and postconditions
+
+model Employee
+
+-- classes
+
+class Person
+	attributes
+		name : String
+		age : Integer
+		income : Real
+	operations
+		calcIncome(updatedSalary: Real) : Real
+		begin
+			self.income := self.income + updatedSalary;
+			result := self.income;
+		end
+end
+	
+class Company
+	attributes
+		name : String
+		location : String
+	operations
+ 		hire(person: Person, contract: Contract)
+		hireSoil(person: Person, contract: Contract)
+ 		begin
+			--The person should not yet be hired, the contraints take care of that.
+			insert(self, contract) into isAt;
+			insert(person, contract) into WorksOn;
+			person.calcIncome(contract.salary);
+ 		end
+
+		fire(person: Person)
+		fireSoil(person: Person)
+		begin
+			-- find the contract they have in common, using intersection operation for speed.
+			for contract in self.contracts->intersection(person.jobs) do
+			    delete(self, contract) from isAt;
+			    delete(person, contract) from WorksOn;
+			    person.calcIncome(-contract.salary); -- shrink the salary that was associated with this contract
+			end;
+		end
+end
+
+class Contract
+	attributes
+		title: String
+		salary: Real	
+	operations	
+		raiseSalary(rate : Real): Real
+		raiseSalarySoil(rate : Real): Real
+		begin
+			self.personWorking.calcIncome(self.salary * rate); -- add the added amount to the employee
+			self.salary := self.salary * (1.0 + rate); -- update the new salary for next time
+			result := self.salary; -- return the result
+		end
+end
+
+
+-- the person and a contract
+association WorksOn between
+	Person[1] role personWorking
+	Contract[*] role jobs
+end
+
+-- the contact and the company
+association isAt between
+	Company[1] role company
+	Contract[1..*] role contracts
+end
+
+
+-- constraints
+
+constraints
+
+context Company:: hire(person : Person, contract: Contract)
+	-- before a person is hired these has to be true
+	pre personIsDefined: person.isDefined() -- the person must be a defined object
+
+	-- the contract that the person is being hired to is not yet taken. this is to preserve the multiplicity given in the design
+	pre contractNotYetTaken: contract.personWorking = null -- this is has to be true to show if it is free or not
+
+	-- he must not be hired on any previous job with this particulat company
+	pre personIsNotYetHired: self.contracts -> intersection(person.jobs)->size() = 0
+
+	-- before the person is hired, this minimum wage has to be met.
+	pre hireMinimumSalary : contract.salary >= 20000
+	
+	-- after a person has been hired, these have to be true
+	-- these will be only one instance of this person, that is linked to this company through the contract object
+	post personNowInHired :  self.contracts -> intersection(person.jobs) = Set{contract}
+	
+	-- after being hired a person's total income has to be updated to reflect the wage.
+	post PersonIncomeUpdated : person.income >= (person.income@pre + 20000)
+
+
+context Contract::raiseSalary(rate : Real) : Real
+	-- the person associated with this contract has to be at leat 21 years or older
+	-- have to check if the age is allowed before raising any money to the contract associated with a person
+	pre RaiseSalaryAge21 : self.personWorking.age >= 21 
+
+	-- if the raise was applied, their income has to be updated  
+	post personIncomeRaised :self.personWorking.income = self.personWorking.income@pre + (salary@pre * rate)
+	
+	-- the total salary for the Contract has to then be updated as well.
+	post salaryRaisedUpdate : salary = salary@pre * (1.0 + rate)
+
+
+context Company::fire(person : Person)
+
+	-- the person object must exist
+	pre definedPerson : person.isDefined() -- this the person object has to exist
+	
+	-- the person being fired must be hired in the first place. this Set() must not be empty
+	pre employeeWasHired :  self.contracts -> intersection(person.jobs) -> size() = 1
+	
+        -- the person being fired's salary must be below 100k first, this has to be checked against the contract he has
+	-- but the person has to be hired in the first place. 
+	pre checkSalaryRange:(self.contracts -> intersection(person.jobs)->size() = 1) and
+	(self.contracts -> intersection(person.jobs)->select(cont| cont.salary >= 100000)->size() = 0)
+	
+	-- If the person is fired there should be no contract left between them and this company
+	post employeeNowFired:  self.contracts -> intersection(person.jobs) -> size() = 0
+	
+        -- after fired, they salary should drop to the amount they had from this contract
+      	post salaryDroped: person.income < person.income@pre  -- alternativey :minus the salary of the current contract
+    

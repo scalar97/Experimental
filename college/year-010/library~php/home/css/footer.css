@@ -1,0 +1,15 @@
+footer{
+	background:rgba(200,200,200,.5);
+	padding: .5%;
+}
+footer #lang{
+	text-align: right;
+}
+li {
+	list-style-type: none;
+}
+
+section{
+	display: inline-flex;
+	margin-right: 2.5%;
+}

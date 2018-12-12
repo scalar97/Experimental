@@ -1,0 +1,27 @@
+body{
+    width: 70%;
+    margin: auto;
+    font-family: "SST W01 Roman", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.accent{
+    color: dodgerblue;
+    font-weight: bold;
+}
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+}
+th {
+    text-align: left;
+    background: dodgerblue;
+    padding: 8px;
+    color: beige;
+}
+td{
+    padding: 8px;
+}
+tr:nth-child(even) {background-color: beige;}
+tr:hover {
+    background-color: lavender;
+}

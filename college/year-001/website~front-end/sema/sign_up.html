@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sign-up</title>
+		<meta charset="UTF-8">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="Assets/CSS/site.css">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<meta name="description" content="sema redisteration form in order to obatain a Sema ID and a discount code">
+
+		<meta name="keywords" content="register,log-in,member,ID">
+
+		<script type="text/javascript" src="Assets/JavaScript/site.js"></script>
+	</head>
+	<body id="form_only_body">
+		<header>
+			<div id="bar_header">
+				<div id="logo_bar">
+					<a href="index.html"><img src="Assets/Images/sema_logo_only.png" alt="Sema logo"></a>
+				</div>
+			</div>				
+		</header>
+		<div id="main">
+			<img id="banner_image" src="Assets/Images/sign_up_banner.png" alt="Sema Logo">
+			<p>Already have an account? <a href="">Sign in</a></p>
+			<form id="sign_up_form" method="post" onsubmit="return sign_up(); ">
+				<h4>Create a New Account</h4>
+				<label>
+					<span>Firstname<em> *</em></span>
+					<input type="text" name="firstname"><br>
+				</label><p class="error" id="error1"></p>
+				<label>
+					<span>Lastname<em> *</em></span>
+					<input type="text" name="lastname" ><br>
+				</label><p class="error" id="error2"></p>
+				<label>
+					<span>Sign-In ID<em> *</em></span>
+					<input type="text" name="email" placeholder="myname@example.com"><br>
+				</label><p class="error" id="error3"></p>
+				<label>
+					<span>Mobile number<em> *</em></span>
+					<input type="text" name="phone_number" placeholder="e.g. 0861234567"><br>
+				</label><p class="error" id="error4"></p>
+				<label>
+					<span>Age<em> *</em></span>
+					<input type="text" name="date_of_birth"><br>
+				</label><p class="error" id="error_age"></p>
+				<label>
+					<span><b>Gender:</b></span><br>
+					<span>Male</span><input type="radio" name="gender" value="Male" checked><br>
+					<span>Female</span><input type="radio" name="gender" value="Female"><br>	
+				</label>
+				<label>
+					<span>Country<em> *</em></span>
+						<select name="countries">
+							<option value="select" selected>--Select--</option>
+							<option value="ireland">Ireland</option>
+							<option value="UK">United Kingdom</option>
+						</select><br>
+				</label><p class="error" id="error5"></p>
+				<label>
+					<span>County<em> *</em></span>
+						<select name="county">
+							<option value="select" selected>--Select--</option>
+							<option value="Dublin">Dublin</option>
+							<option value="Cork">Cork</option>
+							<option value="Galway">Galway</option>
+							<option value="Belfast">belfast</option>
+							<option value="Waterford">Waterford</option>
+						</select><br>
+				</label><p class="error" id="error6"></p>
+				<label>
+					<span>Create password<em> *</em></span>
+					<input type="password" name="password1"><br>
+				</label><p class="error" id="error7"></p>
+				<label>
+					<span>Confirm Passord<em> *</em></span>
+					<input type="password" name="password2"><br><br>
+				</label>
+				<label>
+					<input type="checkbox" name="email_subscription">Send me offers and promotions by e-mails.<br><br>
+				</label>
+				<div id="create_account">
+					<p>By clicking on 'I Agree' you confirm that you have read and understood the <a href="#">Terms of and conditions,</a> and the <a href="#">Privacy Policy</a>.</p>
+					<button type="submit">I Agree. Create My Account</button>
+				</div>
+			</form>
+		</div>
+		<footer>
+			<div id="links">
+				<section class="footer_link">
+					<ul>
+						<li><h3>About Sema</h3></li>
+						<li><a href="#">Store Locator</a></li>
+						<li><a href="#">Terms and Conditions</a></li>
+						<li><a href="#">Carrers</a></li>
+						<li><a href="#">Cookies</a></li>
+						<li><a href="#">Site-map</a></li>
+					</ul>
+				</section>
+				<section class="footer_link">
+					<ul>
+						<li><h3>Products</h3></li>
+						<li><a href="#">Phones</a></li>
+						<li><a href="#">Tablets</a></li>
+						<li><a href="#">Smart Watches</a></li>
+						<li><a href="#">Earphones</a></li>
+						<li><a href="#">Fiber</a></li>
+						<li><a href="#">Landline</a></li>
+						<li><a href="#">Goggles</a></li>
+						<li><a href="#">Other Accessories</a></li>
+					</ul>
+				</section>
+				<section class="footer_link">
+					<ul>
+						<li><h3>MySema</h3></li>
+						<li><a href="#">Log-in</a></li>
+						<li><a href="#">Sign-up</a></li>
+						<li><a href="#">Customer Services</a></li>
+					</ul>
+				</section>
+				<section class="footer_link">
+					<ul>
+						<li><h3>Community</h3></li>
+						<li><a href="#">Join Today</a></li>
+						<li><a href="#">Upcoming Events</a></li>
+						<li><a href="#">Annual Sema Marathon</a></li>
+						<li><a href="#">Charity Events</a></li>
+						<li><a href="#">The Great Great Run</a></li>
+						<li><a href="#">Christmas Events</a></li>
+						<li><a href="#">Camping</a></li>
+						<li><a href="#">Barbeques</a></li>
+						<li><a href="#">Weekly Calender</a></li>
+					</ul>
+				</section>
+				<section class="footer_link">
+						<ul>
+							<li><h3>Quick Links</h3></li>
+							<li><a href="index.html">Shop now</a></li>
+							<li><a href="sign_up.html">Sign up today</a></li>
+							<li><a href="activate_my_sim.html">Activate my sim</a></li>
+							<li><a href="community.html">About the community</a></li>
+							<li><a href="add_to_cart.html">View cart</a></li>
+						</ul>
+				</section>
+			</div>
+			<div id="social">
+				<h2>Stay in touch</h2>
+					<a href="#"><img src="Assets/Images/facebook.svg" alt="Facebook"/></a>
+				<a href="#"><img src="Assets/Images/twitter.svg" alt="Twitter"/></a>
+				<a href="#"><img src="Assets/Images/youtube.svg" alt="YouTube"/></a>
+				<p>Irish | English | Español | Français | 体中文</p>
+			</div>
+			<div id="copy_right">
+			<p>Sema mobile ltd. Registered in Dublin, Ireland. Registration Number 000000. Registered Office: 1 This avenue, This Road, Dublin 1. <br>All Rights Reserved<br>&copy; 1910–2016
+			</p>
+			</div>
+		</footer>
+	</body>
+</html>

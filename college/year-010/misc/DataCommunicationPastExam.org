@@ -1,0 +1,85 @@
+ii) Synchronisation as a problem - 8 marks
+
+elaborate this further
+* include the pictures to explain further. He prefers pictures like Damian.
+
+- the receiver has to rely on his own clock. this is a problem
+- the Manchester addresses This problem by including a clock signal at the centre of each bit interval.
+
+iii) identifies the bit in that sequence
+- from low to high is 1
+- high to low is 0
+
+
+2016. 2. i)
+15Mhz: transmission system
+added a f and a 3f signals
+
+- calculate the maximum frequency: 15MHz. because it is the maximum system bandwidth
+- When two signals are added, 
+a f and a 3f will have to operate at 
+f = 5Mhz
+=> 3f = 15Mhz
+f = 5f
+3f is not MHz it is just 3 times the previous frequency
+
+ii) the bit pattern that can be carried is 1,0,1,0 ...
+iii) what is the fastest data rate?
+
+wave 1: can be transmitted at 15MHZ
+wave 1: carries 2 bits at a time. the number of cycles per second.
+15Million cycles> gives 30Million bits per seconds.
+
+wave 2: 5 million cycles per seconds.
+we can carries 2 bit patterns. the maximum of but per second is 5 * 2 MBit per second
+=> 10MB/sec
+
+3. Data comes in frames to prevent sending the whole chunk of data.
+15000Bytes, data fields with 40bytes overhead. about 0.06%.
+
+In Europe: the bit sample is 64Kbits.
+kHz is the maximum bandwidth. This is the maximum frequency that can be sent. The human voice is kHz so this make loss of the kHz
+
+To sample this we have to sample twice it. i.e kHz * 2 = 8K samples per second( notice sample, not kHz)
+if a ruler of 8 bit is used, then for every sample, we have 8 * 8 bit ruler = 64kBits per second.
+
+
+
+CSMA: Carrier Sense Multiple Access
+i) Checks if there is already a signal on the link. if there is it stops transmitting.
+collision occurs when stations trie to transmit the signal roughtly the same time, after they both saw a clear transmit media.
+
+ii) When a station detects a collision it stops transmitting and wait for a random time.
+
+6.
+The hub transmit the frame to any listening ports. includes the possibility of colliding frames.
+
+Switch looks at the frame address and send to where the address is
+
+
+Ethernet calbles: most pcs have 1
+A switch: can have 24 ports and send them to a specific address
+
+iii)
+image2:
+Contention: when two frames are competing to send data to the hub.
+the re possible collisions because they are fighting access to the hub and are only getting access periodically. This is also slow.
+
+- if a frame wants to be transmitted, it will check if there is already a frame, and stop if there is.
+Shared medium hub
+does not have complete access has to fight
+
+
+
+image1:
+The switch does not get collisions because data is sent to a specific address and no collisions occur. 
+Does not need to check if there is a a trnasmited data because they have a link ti any other 
+Switch hub
+shows contention free, has complete access
+
+7. i) collision corrupts data, the receiver sends a reject message, the transmitter has to transmit from nth frame onwards.
+
+ii) trnasmits the frame, checks to be notified if arrived, transmits next frame, checks if ... if it coolides he will wait for a random time, then send again from the frame that was lost onwards.
+Collision dectection allow the transmiter to know if the collision has occured.
+
+20 Questions.

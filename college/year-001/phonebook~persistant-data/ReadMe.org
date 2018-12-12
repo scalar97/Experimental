@@ -1,0 +1,22 @@
+** Create a simple phonebook that performs the following functions:
+
+    1. Add new contact
+    2. Delete old contact
+    3. Edit contact
+    4. Find contact
+    5. Record contacts
+
+*** Sample contact:
+
+| Name |      Phone | email               |
+|------+------------+---------------------|
+| Luna | 0876454321 | luna.smith@email.ie |
+|------+------------+---------------------|
+
+
+This *program is to be implemented using an array*. The code should use functions where appropriate and effective error checking. Select an appropriate unique identifier (key) assume that no contacts share a phone.
+
+For the fifth function ‘Record contacts’ *implement an appropriate sorting algorithm* based on the design of a phone book of max 200 contacts and create a file called phonebook that is used to store the phonebook for reference. An additional variable within the file or filename argument will be required to date the phonebook records file.
+
+In addition to the required user functions, create an additional display() in order to demonstrate your code after each addition, deletion or alteration. When the phonebook is full send an alert to the user that no further contacts may be added. 
+In order to demonstrate use an array of 5 with 3 pre-initialised contacts.

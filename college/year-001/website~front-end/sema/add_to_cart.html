@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Add Item to cart</title>
+		<meta charset="UTF-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="Assets/CSS/site.css">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<meta name="description" content="learn more about the product chosen to be baought before addicing it to the cart and checking out">
+
+		<meta name="keywords" content="sema,add to cart,buy now">
+
+		<script type="text/javascript" src="Assets/JavaScript/site.js"></script>
+	</head>
+	<body>
+		<header>
+			<div id="bar_header">
+				<div id="logo_bar">
+					<a href="index.html"><img alt="logo" src="Assets/Images/sema_logo_only.png"></a>
+				</div>
+			</div>				
+		</header>
+		<div id="check_out">
+			<div id="top_page">
+				<h2>iPhone 6s</h2>
+				<p>3D Touch | 12MP isight Camera| 4k video | 4G LTE</p><br>
+				<button id="accordion" onclick="show_table();">Additional Information</button><button id="hide" onclick="hide_table();"><i class="fa fa-angle-up"></i>   Hide</button><br>
+			</div>
+			<div id="panel">
+				<table>
+					<tr>
+						<th class="feature">Headphone connector</th>
+						<td class="info">Yes</td>
+					</tr>
+					<tr>
+						<th class="feature">Charger Connector</th>
+						<td class="info">Yes</td>
+					</tr>
+					<tr>
+						<th class="feature">Screen Size</th>
+						<td class="info">4.7inch</td>
+					</tr>
+					<tr>
+						<th class="feature">Bluetooth</th>
+						<td class="info">Yes</td>
+					</tr>
+					<tr>
+						<th class="feature">Front Camera</th>
+						<td class="info">5 MP, f/2.2 aperture, 720p</td>
+					</tr>
+					<tr>
+						<th class="feature">Siri</th>
+						<td class="info">Yes</td>
+					</tr>
+					<tr>
+						<th class="feature">Video Recording</th>
+						<td class="info">4K video recording(3840x2160) at 30fps</td>
+					</tr>
+					<tr>
+						<th class="feature">3D Touch</th>
+						<td class="info">Yes</td>
+					<tr>
+						<th class="feature">Battery life</th>
+						<td class="info">14 hours</td>
+					</tr>
+					<tr>
+						<th class="feature">Touch ID</th>
+						<td class="info">Yes</td>
+					</tr>
+				</table>
+			</div><br>
+			<div id="left_menu">
+				<div id=images>
+					<ul>
+						<li><img onclick="toute();" src="Assets/Images/iphone1.png" alt="I phone 6s"/></li>
+						<li><img onclick="silver();" src="Assets/Images/iphone3.png" alt="I phone 6s"/></li>
+						<li><img onclick="rose_gold();" src="Assets/Images/iphone2.png" alt="I phone 6s"/></li>
+					</ul>
+				</div>
+				<div id="front_image_div">
+					<img id="front_image" src="Assets/Images/iphone2.png" alt="I phone 6s"/>
+				</div>
+			</div>
+			<div id="right_menu">
+				<h2>Select color :&nbsp;</h2>
+				<span id="colour_name"></span>
+				<div>
+					<ul>
+						<li><img alt="rose_gold" onmouseover="rose_color();" src="Assets/Images/color_option_rose_gold.png"/></li>
+						<li><img alt="rose_gold" onmouseover="gold_color();" src="Assets/Images/color_option_gold.png"/></li>
+						<li><img alt="silver" onmouseover="silver_color();" src="Assets/Images/color_option_silver.png"/></li>
+						<li><img alt="space grey" onmouseover="space_grey_color();" src="Assets/Images/color_option_space_grey.png"/></li>
+					</ul>
+				</div>
+				<div>
+					<h2>Storage:</h2>
+					<div onclick="storage32();" id="storage32" class="storage">32GB</div>
+					<div onclick="storage128();" id="storage128" class="storage">128GB</div>
+					<p class="info_paragraph">Free shipping for orders over 50€</p>
+				</div>
+				<div id="additional_info">
+					<p>Get 10% off with your discount code <a href= "#">Learn more</a></p>
+					<label>Enter discount code: </label><input type="text" name="discount">
+					<h2>Total: <span id="chek_out_total">€99.99</span></h2>
+				</div>
+				<form id="create_account" onsubmit="add_it();">
+				<button type="submit">Add to cart</button>
+				</form>
+			</div>	
+			<div id="bottom_div">
+				<p>Frequently baught together</p>
+				<div>
+				<section>
+					<h5>Otter Box symetry Case</h5>
+					<img alt="accessories" src="Assets/Images/accessory2.png"><h4>Price: €49.99</h4>
+					<input type="checkbox" name="Add_to_my_offer">Add to my offer
+				</section>
+				<section>
+					<h5>Wireless Earphones</h5>
+					<img alt="eaphones" src="Assets/Images/earphone3.png"><h4>Price: €120.99</h4>
+					<input type="checkbox" name="Add_to_my_offer">Add to my offer
+				</section>
+				</div>
+			</div>		
+		</div>
+		<footer>
+			<div id="links">
+				<section class="footer_link">
+					<ul>
+						<li><h3>About Sema</h3></li>
+						<li><a href="#">Store Locator</a></li>
+						<li><a href="#">Terms and Conditions</a></li>
+						<li><a href="#">Carrers</a></li>
+						<li><a href="#">Cookies</a></li>
+						<li><a href="#">Site-map</a></li>
+					</ul>
+				</section>
+				<section class="footer_link">
+					<ul>
+						<li><h3>Products</h3></li>
+						<li><a href="#">Phones</a></li>
+						<li><a href="#">Tablets</a></li>
+						<li><a href="#">Smart Watches</a></li>
+						<li><a href="#">Earphones</a></li>
+						<li><a href="#">Fiber</a></li>
+						<li><a href="#">Landline</a></li>
+						<li><a href="#">Goggles</a></li>
+						<li><a href="#">Other Accessories</a></li>
+					</ul>
+				</section>
+				<section class="footer_link">
+					<ul>
+						<li><h3>MySema</h3></li>
+						<li><a href="#">Log-in</a></li>
+						<li><a href="#">Sign-up</a></li>
+						<li><a href="#">Customer Services</a></li>
+					</ul>
+				</section>
+				<section class="footer_link">
+					<ul>
+						<li><h3>Community</h3></li>
+						<li><a href="#">Join Today</a></li>
+						<li><a href="#">Upcoming Events</a></li>
+						<li><a href="#">Annual Sema Marathon</a></li>
+						<li><a href="#">Charity Events</a></li>
+						<li><a href="#">The Great Great Run</a></li>
+						<li><a href="#">Christmas Events</a></li>
+						<li><a href="#">Camping</a></li>
+						<li><a href="#">Barbeques</a></li>
+						<li><a href="#">Weekly Calender</a></li>
+					</ul>
+				</section>
+				<section class="footer_link">
+						<ul>
+							<li><h3>Quick Links</h3></li>
+							<li><a href="index.html">Shop now</a></li>
+							<li><a href="sign_up.html">Sign up today</a></li>
+							<li><a href="activate_my_sim.html">Activate my sim</a></li>
+							<li><a href="community.html">About the community</a></li>
+							<li><a href="add_to_cart.html">View cart</a></li>
+						</ul>
+				</section>
+			</div>
+			<div id="social">
+				<h2>Stay in touch</h2>
+					<a href="#"><img src="Assets/Images/facebook.svg" alt="Facebook"/></a>
+				<a href="#"><img src="Assets/Images/twitter.svg" alt="Twitter"/></a>
+				<a href="#"><img src="Assets/Images/youtube.svg" alt="YouTube"/></a>
+				<p>Irish | English | Español | Français | 体中文</p>
+			</div>
+			<div id="copy_right">
+			<p>Sema mobile ltd. Registered in Dublin, Ireland. Registration Number 000000. Registered Office: 1 This avenue, This Road, Dublin 1. <br>All Rights Reserved<br>&copy; 1910–2016
+			</p>
+			</div>
+		</footer>
+	</body>
+</html>

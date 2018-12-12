@@ -1,0 +1,14 @@
+** Find a student by surname or by type
+
+You are required to design and implement an algorithm to print student records *sorted by their surname*,
+and by their type e.g (Eu students, non eu students and International student).
+Using search and sorting algorithms or Datastructures of your choice.
+
+**** Your solution should allow the following:
+
+	- Inserting records into the data structure choosen
+	- Printing student records by type, e.g print all international tudents in *sorted order*
+	- Finding a Student *by surname*
+	- Sourcing all your records *from a file*
+	- Your choosen algorithm should _TAKE IN ACCOUNT THE TIME COMPLEXIETY_.
+	- A *flowchart of your insertion* must be included in your documentation, as well pseudocodes of all the *searching algorithms* choosen.

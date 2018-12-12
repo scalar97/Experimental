@@ -1,0 +1,456 @@
+* 2017
+
+[[https://github.com/fniessen/refcard-org-mode][Click here for org file syntax. Hint: Press Ctrl+G and jump to next searched occurence]]
+ 
+** Q1
+*** a) Describe and define web multi-tier application architecture - 10 marks
+
+The modern application architechture is comprised of three distinct tiers:
+
+1 . *The front tier*
+
+The front tier is /the user interface layer/. It displays information to the user using client-side technologies such as Html, Xml, Css, and other client-side scripting languages to make the website a bit interactive such as Javascript, Jquerry...
+In a website, this layer's rendered /source code can be accessed/ by the user inside a webbrowser.
+
+2 . *The middle tier*
+
+the middle tier acts like an intermediate between the front and the back tier
+e.g between the user interface and  the database 
+The middle tier dynamically generate requests based on the logic specified by the front tier. These requests are then sent to the backtier.
+e.g the front tier click on the ~show products~ link.
+the middle tier generate the sql querry ~select * from products~ , that will then be sent to the back tier.
+
+example of middle tier applications are Php, Python, Ruby .. Note: the source code of this tier is not accessible to the user.
+
+3 . *The back tier*
+
+This include the data storage center including the database as well as the data storage system used inside the application.
+this tier can be accessed via the middle tier. 
+the source code of this tier is not accessible to the user either. This data is persistant, and protected. It is meant to be accessed via the middle tier only.
+
+e.g Mysql, Sql server
+
+
+*** b) A developper team is selecting an appropriate web server to support suite of webpage applications. List six selection criteria that they should consider in their selection. In your answer, name three market leading web server that they may see in their selection.
+
+*1) Performance:*
+
+This aspect should be considered depending on the load involved in the web application suite.
+e.g How many client's requests can the web server handle per second?
+If this load is too high than the server can sustain, it will be buffering.
+
+*2) Price:*
+
+How much does it cost to install and maintain the server? This cost can also include trainning cost and what engines would suit its set up?
+Apache is free whereas WIndows' IIS is not.
+
+*3) Reliability:*
+How reliable or robust is the web server, does it usually break? is it bugged? 
+
+
+*4) Operating systems:*
+what operating systems is it dependant on? will this affect the operating system the team is currently using?
+For example IIS runs on windows machines and Apache on Both Linux machines and Windows.
+
+*5) Functionality:*
+what technologies does the server support?
+Proxy servers
+Loggings
+
+*6) Security:*
+How secure is the web server? 
+e.g does it offer SSL?
+
+
+
+*** c) what does this code do?
+
+#+BEGIN_SRC php :var sea="blue" :results output org
+<?php
+$num1 = 1;
+$num2 = 2;
+print $num1 . "+". $num2;
+?>
+#+END_SRC
+Output : ~1+2~
+
+*** d) There is a user table in mySQL database, in which threre are four columns (ID, USerName, Pass, Name), whith aproximately twenty rows in this table. Write php code fro Page login program, that does the following: 
+- Login page containing two fields: Username, Password.
+- Login page contains a submit button so that when clicked, it checks if the values Username and Password are matching records of the table, and then displays Welcome(value of name), or otherwise displays "That user does not exist in our database. Click here to Register".
+- Include appropriate error processing.
+
+1) Login page:
+#+BEGIN_SRC php
+<?php
+$parse = array(array("username", "text", "Username"), # the Username field
+         array("password", "password", "Password"), # the password field
+         array("", "submit", "Log in")); # this is the submit button
+$title ="Log in";
+$post_to = "user_login.php";
+echo '<html>
+        <head><title>'.$title.'</title><head>
+        <body>';
+            # using the post method to the userlogin page that will heck the database
+      echo  '<form method="post" action="'. $post_to .'">';
+                foreach($parse as $atr)
+                {
+                   # printing the tags and marking them as required.
+                   # this reduces the amount of work needed for the server
+                   echo'<input name='.$atr[0].' type='.$atr[1].' placeholder='.$atr[2].' required>';
+                }
+# closing the form tag and the rest of the html
+echo'        </form>
+        </body>
+      </html>';     
+?>
+#+END_SRC
+
+
+2) Check if user is in the database
+
+a) Submit button already included in part 1.
+
+b) Check existence of user
+
+Hint: apache = ~mysqli_connect~ ; phpmyadmin = ~mysqli_connect_db~  *do not forget the db!*
+
+#+BEGIN_SRC php
+<?php
+# making the connection with Apache server
+$connection = mysqli_connect('localhost', 'root','') or die ('failed to connect the server');
+# making the connection with the database
+mysqli_connect_db($connection, "database_name") or die ('failed to connect the database');
+
+# checking if the username and password were passed 
+if(isset($_POST['username'] && isset($_POST['password'])))
+{
+    $userdata = array($_POST['username'], $_POST['password']);
+    # sanitise the user input
+    foreach($userdata as $data)
+        stripslashes($data);
+
+    # get the user's row from the database
+    $result = mysqli_querry($connection, "select * from User where username='".$userdata[0]."' 
+                                        and password='".$userdata[1]."'");
+
+    # close the connection because we are about to exit
+    mysqli_close($connection);
+
+    # check if the user exist, there should only be one occurance
+    if(mysqli_num_rows($result) == 1)
+    {
+        # save the user's data in the session for later access
+        session_start();
+
+        #convert the resut into associative array that can be accessed using keyword index
+        $_SESSION = mysqli_fetch_assoc($result);
+        $_SESSION['loggedin'] = true;
+
+        echo '<p>Welcome '. $_SESSION['name'] .'!</p>'; 
+    }
+    else
+    {    
+        # notify that the user does not exist.
+        echo '</p>That user does not exist. click <a href="signup.php">here</a> to signup</p><br>';
+    }
+}
+?>
+
+#+END_SRC
+
+** Q2
+*** A) List the seven stages of the Web Life Cycle Model and provide a brief discussion on each of them(14m)
+ 
+*i.		Define the mission of the website*
+Involves finding out what the project will do and if it is possible to be done.
+The choices of client and server side technologies are considered based on factors such as, the total cost, the security,..
+
+*iii. 	Collect the user requirements of the web site*
+Design prototype and sitemaps that show how the website will look, and how the user will interact with various features of the website. This ensures that the ideas given by the user are consistant before designing the ideas.
+
+*ii..	Create the conceptual design of the web site*
+This is the designer's work to create high fidelity prototypes that describes in hiher details how the website will look like and be used. 
+ 
+*iv.	Implementation of the website*
+Write the code for the website as designed, and implementing fucntionality while using cline-side and server side technologies as required.
+ 
+*v. 	usability testing*
+testing the program written to make sure it perfoms are expected. bugs are fixed at this stage.
+ 
+*vi. 	Deploy*
+After all testing the website is delivred to the client.
+ 
+*vii.	Maintenance*
+Keeping the website updated with latest update of developer tools, e.g when a new version of Html or php is released,
+also fixing bugs that may not have been caught during depevelopemnt.
+This stage also involves 
+ 
+*** b) What is the output of the following code?(4m)
+#+BEGIN_SRC php
+<?php
+	$foo = 'Bob';
+	$bar = &$foo;
+	$bar = "My name is $bar";
+	echo $bar;
+	echo $foo;
+?>
+#+END_SRC
+
+~iv) My name is BobMy name is Bob~
+
+
+*** c) When processing the form, what is the difference between a hidden form element and a non hidden one, such as a text box?(4m)
+
+i. The hidden form element does not have a name.
+
+~ii. There is no difference.~
+
+iii. The hidden form element does not have a value.
+
+iv. The hidden form element is excluded from the request.
+
+
+*** d) Write a well formed XML document that represents the data shown in fig 1 below. (8m)
+#+BEGIN_SRC xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<hospitalbill>
+    <bill>
+        <DateofService>20/05/2016</DateofService>
+        <Service>Kidney Ultrasound</Service>
+        <ID>992837</ID>
+        <Price>204.99</Price>
+ </bill>
+ <bill>
+        <DateofService>21/05/2016</DateofService>
+        <Service> Chest X Ray</Service>
+        <ID>99928</ID>
+        <Price> 59.99 </Price>
+    </bill>
+    <bill>
+        <DateofService>Total</DateofService>
+        <Price>264.98</Price>
+    </bill>
+</hospitalbill>
+
+#+END_SRC
+
+** Q3
+*** a) six differences between php and ASP
+
+- PHP is an open source language with a large community of developers to rely on, ASP however is a closed source Microsoft platform with a much smaller community.
+- ASP allows for much less customization and less sloppy code when compared with PHP which is very permissive with what it allows
+
+- Error Reporting in PHP is poor and it can be hard to understand what is wrong with a code when compared to ASP and other languages
+- ASP can only be used on Microsoft machines with IIS, whereas PHP can be hosted on web servers on all major OS choices.
+- Great UI for developers with visual studio, PHP lacks proper native IDEs
+- ASP.net tend to be faster than PHP especially when integrated with languages such as C#
+
+
+*** b) Why must you call session_start() prior output?
+
+i)  Because it is easy to forget if not placed at the top of your script
+
+ii) Because you can no longer access the session data store after there…
+
+~iii)Because session_start() sets some HTTP headers.~
+
+iv)Because calling session_start() causes the HTTP headers to be sent.
+
+The right answer according to this questionable website http://www.informit.com/articles/article.aspx?p=336250&seqNum=7
+
+*** c) A “Stock" table contains four columns: productID, Product, Description and stock. Write code for a php Page that selects all rows from the stock table less than 10 and display the rows on a HTML page.
+
+#+BEGIN_SRC php
+
+<?php
+# establishing the connection with the database and the server
+$connection = mysqli_connect(‘localhost’, ‘root’, ‘’) or die(‘failed to connect the server);
+mysqli_connect_db($connection, “database_name") or die (‘database connection failed’);
+# getting the result from the tables
+$result = mysqli_query($connection, '   select ProductID, Product, Description,
+                                        count(stock) as “Quantity" 
+                                        From Stock
+                                        Where count(stock) < 10
+                                        Group by ProductID, Product, Description');
+# close the connection before exit to html page
+mysqli_close($connection);
+# displaying the data to the an html page
+echo'
+<html>
+    <head><title>Result</title>
+    <body>
+        <table>\n';
+        # displaying the rows in the current dynamically generated html page.
+        while($row= mysqli_fetch_assoc($result))
+        {
+            echo '<tr><td>'
+            . $row['ProductID'] .'</td><td>'h
+            . $row['Product'] .'</td><td>'
+            . $row['Description'].'</td><td>'
+            . $row['Quantity'].'</td></tr>' ;
+        }
+echo         '</table>
+    </body>
+</html>';
+?>
+
+#+END_SRC
+** Q4
+*** a) A web designer is developing a web application and is attempting to determine whether to use client or server based validation or both in the following web pages.
+User registration page that will capture user details for entry on a database
+Search screen allowing users to enter search parameters that will query a database
+Recommend a type of validation that should be used by the designer in each of the two pages, providing reasons for your recommendations.
+
+* FULL MARKS: https://www.youtube.com/watch?v=n4Xp6g-_UUw
+
+
+*** b) What will be the output of the following code?
+#+BEGIN_SRC php
+
+<?php
+function calc($price, $tax="")
+{
+    $total = $price + ($price * $tax);  // string and integer WTF
+    echo “$total";  //now the variable is wrapped in quotes, interesting
+}
+?>
+#+END_SRC
+
+i) error
+
+ii) 0
+
+~iii) 42~
+
+iv) 84
+
+
+
+* 2016
+
+** Q1.
+*** a) Define the multi-tier application architecture.
+
+Multi Tier Architecture
+
+
+There is 3 levels in the architecture of a website,
+
+
+*Front End*: This is composed of mainly static content supplied by the server during the initial loading, mostly HTML, CSS formatted webpages sometimes intermixed with client side scripting languages such as JavaScript and Jquery.
+
+
+*Middle tier*: This layer resides on the server itself, this is code designed to provide enhanced functionality to the website and provide personalization, it acts as a filter to the backend resources such as databases. Languages such as PHP, ASP.net and Ruby on rails are used in this layer. Code at this level is not visible to the client.
+
+
+*Backend*: This is composed of resources such as databases and application hooks/Api's that provide the website with advanced functionality such as user profiles, large data storage etc.
+
+
+*** b) Describe the difference between client side and server side scripting in your answer explain whether the following languages support either or both:
+
+Client side scripting is scripts that are run entirely within the users browser and have no contact with the server beyond the initial loading. They use the resources of the users machine.
+Server Side scripting is scripts that run on the server itself and use the servers resources, these can be used to provide advanced functionality and personalization to a website, this can then be used to generate or control valid client side scripts.
+
+- JSP is a Server Side scripting Language and often used in conjunction with javascript.
+- Python is a programming language that can be used in Server Side scripting, although technically it can also be used in client side scripting.
+- Java Applets are apps that use java and run entirely on the client side.
+- CSS is a markup language used to style HTML, works purely on the client side.
+
+
+
+*** C) What is the output of the following?
+
+#+BEGIN_SRC php
+
+<?php
+    /*
+    011 = 8^0 + 8^1  but putting them as 1 make it so confusing to think they are in binary :((((( 
+    => 8 + 1 = 9
+    */
+    $a = 011; // octal number start with 0, binary must start with 0b 
+    $b = 0xA; // hexadecimal for 10
+    $c = 2; // = 2
+    // print 9 + 10 + 2 = 21
+    print $a + $b + $c;
+?>
+#+END_SRC
+
+~i) 21~
+
+ii) 22
+
+iii) 18
+
+iv) $a is an invalid value
+
+v) 13
+
+
+*** d) login page and html stuff
+
+
+#+BEGIN_SRC php
+
+# dynamic login page
+<?php
+# parse.php file 
+$parse = array(array("username", "text", "Username"),
+			   array("password", "password", "Password"));
+$title = "Log in";
+$login_php = "login_check.php"
+echo '<html>
+        <head><title>'. $title.'</title></head>
+        <body>
+            <form action='. $login_php .' method="post">';
+                foreach($form_items as $attr)
+                {
+                   echo '<input name='.attr[0].'type='.attr[1] .'placeholder='.attr[2].'><br>';
+                }
+echo '            <button>Login</button>
+            </form>
+        </body>
+    </html>';
+?>
+# login_check.php
+<?php
+    # making the connection with Apache server
+    $connection = mysqli_connect('localhost', 'root','') or die ('failed to connect the server');
+    # making the connection with the database
+    mysqli_connect_db($connection, "database_name") or die ('failed to connect the database');
+
+    # checking if the username and password were passed 
+    if(isset($_POST['username'] && isset($_POST['password'])))
+    {
+        $userdata = array($_POST['username'], $_POST['password']);
+        # sanitise the user input
+        foreach($userdata as $data)
+            stripslashes($data);
+
+        # get the user's row from the database
+        $result = mysqli_query($connection, "select * from User where username='".$userdata[0]."' 
+                                            and password='".$userdata[1]."'");
+
+        # close the connection because we are about to exit
+        mysqli_close($connection);
+
+        # check if the user exist, there should only be one occurrence
+        if(mysqli_num_rows($result) == 1)
+        {
+            # save the user's data in the session for later access
+            session_start();
+
+            #convert the resut into associative array that can be accessed using keyword index
+            $_SESSION = mysqli_fetch_assoc($result);
+            $_SESSION['loggedin'] = true;
+
+            echo '<p>Welcome '. $_SESSION['name'] .'!</p>'; 
+        }
+        else
+        {    
+            # notify that the user does not exist.
+            echo '</p>That user does not exist. click <a href="signup.php">here</a> to signup</p><br>';
+        }
+    }
+?>
+#+END_SRC

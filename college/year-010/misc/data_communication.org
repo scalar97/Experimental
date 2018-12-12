@@ -1,0 +1,50 @@
+Data Communication: concerned with exhange of data between two devices.
+WAN: Networking interfacethat has been developed to support transmission of multimedia, voidce, data.. over a long distance network.
+LAN: Trnasmits data like WAN, but over a short distance.
+
+DATA COMMUNICATION:
+
+COMMUNICATION MODEL
+1. Source: device generating information, e.g telephone, Personal Computer
+2. Transmitter: Trnasforms and encodes the information in such a way to produce electromagnetic signal 
+3. Trnasmission system: This can be a single transmission line or a complex connecting souve and destination
+4. Receiver: accepts the encoded signal from the rransmission system and decodes it into a form that can be handled by the destination device..
+5. Destination: takes the incomin data from the receiver.
+
+
+COMMUNICATION TASKS:
+
+1. Error detection and correction: useful in circumstances where errors cannot be tolerated. case of data processing systems.
+e.g when transfereing.a file from one device to another, ot is not acceptable for the content of the file to be altered.
+
+2. Flow control: require to assure that the souec does not overwhelm the destination by sending data faster than they can be processed and absorbed.
+3. Addressing and routing: When the transmission medium is shared, it is important to send data to the correct mac address in the netwwork.
+
+4. Recovery: distinct from error detection and correction. This is needed in situations in which informatuon exchange, such as data base transaction or file transfer is interupted due to a fault somewhere in the system. Recovery in volves then resuming from the time of interupt or restore to prior state.
+
+5. Message formatting: aggreement of how the data will be formated, binary code for characters...
+
+6. Security: The transmission system must ensure that the destination on only the destination system receives the data and and the receiver must ensure that the data is being transfered from the correct transmiter.
+
+7. Network management: configure the system, react to failure and overload, plan inteligently for future growth..
+
+Transmission media:
+- The transmission media can be classified as wguided or unguied. (cable, or wifi). In both cases, the communication is in form oof electromagnetic waves.
+*Direct link: information propagates directly from transmitter to receiver with no intermediate device.
+
+
+- the information is converted into electromagnetic signal and then transmitted over a medium
+- most comon medium: twisted pair (telephone line), coaxial cables, optical fiber, terestial and satelite microwave.
+- the data rate that can be achieve and the error that can ocur depends to the nature of the medium.
+
+2. COmmunication technique
+- the technique encodes information into elecromagnetic signal
+- the choice of technique affects performace and realability
+Trnamission Efficiency: 
+- A better choice should maximise the amount of information that can be carried over a given souce, while minimising the tranmision capacity needed.
+
+- THis can be achieved using:
+Multiplexing: refers to the ability of a number of devices to share a transmission facility.
+Compression: involves squeezing the data down so that a lower-capacity, cheaper transmission facility can be used to meet a given demand.
+- These techniques can be used separately or in combinasin. SEE chapter 8.
+

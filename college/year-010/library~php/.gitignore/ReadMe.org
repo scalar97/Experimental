@@ -1,0 +1,60 @@
+Book reservation system using php and mysql
+Due December 1st, 1pm
+
+features:
+- search a book
+- reserve a book
+- view all book that they have reserved
+
+
+* login: the user must identify in order to use the system
+* If they have never used the system, they must register
+
+
+
+* Registeration: 
+They will enter their details on the system.
+* All validations must be server-side:
+	- mobile phone should be numeric and 10 characters in lenght
+	- password should have six characters and have a password confirmation option
+	- the username must be unique
+
+* search a book:
+	** the book must be search in these numbers of ways
+		- by title
+		Hint: in the title entity, add the the authors associated witht the book 
+		- by author
+		Hint : select from author, book associated
+		- by title and by author where possible
+		Hint: title and author, whose regexp matches
+		- by book category description in the dropdown menu (these categories should be retieved from database)
+		Hint: in the book entity, add the category attribute, and autor as foreign key
+
+* Displaying the result:
+	- this must be done as a list. 
+	Hint: use jinja2 for php if any
+	Hint: Use bootstrap,partially to customise some attributes.. if necessary
+	- The user can choose to reserve from the list given.
+	Hint: have a button on the side of each listing stating, reserved, or reserve.
+	- If the book is already reserved, the user should not be allowed to reserve it again.
+
+* Reserve a book
+- THe user should reserve a book that no one has reserved yet.
+Hint: Have a boolean that states if the book is reserved.
+- The date on when the book has been reserved should be captured
+
+* View reserved books:
+	- The user should see all the books curently reserved by them.
+	- The user should be able to remove a reservation
+
+
+Extra:
+- Apart from html, you should try to use other client-side technologies such as CSS to make the pages neat and tidy.
+
+- Do not allow more than 5 rows of data per page, include functionalities to display list accross more than one page.
+Hint: Use the jinja2 equivalent to count how many have been displayed before jumpint to the next page.
+
+- SImple design and neat is required, over styling the pages will not result in extra marks.
+- Use a common header and footer 
+- Avoid hard coding
+- Include error checking as appropriate

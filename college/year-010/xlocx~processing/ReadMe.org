@@ -1,0 +1,25 @@
+* OOP Assignment
+
+** Project Description
+
+The folowing project uses object oriented Design to model a user interface that could be used for the following:
+
+*** Process File Content
+
+1. Acessing file metadata by reading the apropiate bytes in the file
+
+2. Processing the most common word in a non-binary file and display them using various modeled plots objects such as:
+	- the trendline
+	- the PieChart
+
+3. Displays the least common words in a file.
+   This is done using the same features and objects stated above
+
+*** Hide messages inside a file and display a widget that shows the change in the file size
+   This has to be done using a password
+
+*** Descipt a message contained within a file using the password provide above,
+   and using widget objects, display the difference in file size
+
+*** Display the rate of distortion
+After a message has been hidden in a file, use a widget to show how distored the file has become

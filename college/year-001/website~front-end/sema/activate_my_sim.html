@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Activate My Sim Card</title>
+		<meta charset="UTF-8">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="Assets/CSS/site.css">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<meta name="description" content="Activation page to have a sema card functional on your mobile phone.">
+
+		<meta name="keywords" content="activate,phone,activation, sim">
+
+		<script type="text/javascript" src="Assets/JavaScript/site.js"></script>
+	</head>
+	<body>
+		<header>
+			<div id="header_size">
+				<div id="top_header">
+					<ul><li>
+						<a href="index.html">Sema home</a></li><li>
+						<a href="#">help</a></li><li>
+						<a  href="#">Top-up</a></li><li>
+						<a  href="add_to_cart.html" ><i class="fa fa-shopping-cart"></i> Cart</a></li>
+					</ul>
+				</div>
+				<div id="log_in_bar">
+						<ul><li>
+							<a id="log_in" href="#">Log-in</a></li><li>
+							<a href="sign_up.html">Sign-up</a></li>
+						</ul>
+				</div>
+				<div id="navigation_bar">
+					<nav><ul><li class="special"><a class="option" href="index.html">Shop</a></li>
+						<li class="special"><a class="option"  href="community.html">Community</a></li>
+						<li class="special"><a class="option" href="#">Contact</a></li>
+						<li><form role="search" method="get">
+						<input type="text" name="search_bar" value="Search..."><a id="search_icon" href="" onclick=""><i class="fa fa-search"></i>
+						</a></form></li>
+						
+					</ul><div class="clear"></div></nav>
+				</div>
+			</div>				
+		</header>
+		<span id="help_box" onclick="open_sim_card();">Help</span>
+		<div id="sim_card_info">
+			<span><i id="close" onclick="close_sim_card();" class="fa fa-times"></i></span>
+			<p><br><i><b>(This is a sample sim card that you physically hold.)</b></i></p>
+			<img src="Assets/Images/sim_card.png" alt="Your sema sim card"/>
+			<div class="clear"></div>
+		</div>
+		<div id="body_content">
+			<div id="page_title">
+				<h1>Activate My Sim Card</h1>
+			</div>
+			<div id="body_view">
+				<div id="button_set">
+					<button>I am a registred customer</button>
+					<button>Proceed as a guest</button>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div id="activation_form">
+				<section id="activation_info">
+					<h2>You will need</h2>
+					<ol>
+						<li>Your new phone number</li>
+						<li>Your Activation Code</li>
+						<li>Your broadbamd number</li>
+					</ol>
+				</section>
+				<form id="activate_my_sim_form" onsubmit="return activate_sim();">
+					<label>
+						<span>Enter your sema ID <em>(optional)</em></span>
+						<input type="text" name="id"><br>
+					</label>
+					<label>
+						<span>Enter your new phone number<em> *</em></span>
+						<input type="text" name="phone_number" placeholder="e.g 086 00 00 00 1"><br>
+					</label>
+					<label>
+						<span>Enter your activation code<em> *</em></span>
+						<input type="text" name="activation_code" placeholder="e.g. IE12345     (see card holder)"><br>
+					</label>
+					<label>
+						<span>Enter your broadband number<em> *</em></span>
+						<input type="text" name="broadband_number" placeholder="19 digits     (see card holder)"><br>
+					</label><p class="error" id="error8"></p><br>
+					<div id="create_account">
+						<p>By clicking on 'I Agree' you confirm that you have read and understood the <a href="#">Terms of and conditions,</a> and the <a href="#">Privacy Policy</a>.</p><br>
+						<button type="submit">I Agree. Activate My Sim</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<footer>
+			<div id="links">
+				<section class="footer_link">
+						<ul>
+							<li><h3>About Sema</h3></li>
+							<li><a href="#">Store Locator</a></li>
+							<li><a href="#">Terms and Conditions</a></li>
+							<li><a href="#">Carrers</a></li>
+							<li><a href="#">Cookies</a></li>
+							<li><a href="#">Site-map</a></li>
+						</ul>
+				</section>
+				<section class="footer_link">
+						<ul>
+							<li><h3>Products</h3></li>
+							<li><a href="#">Phones</a></li>
+							<li><a href="#">Tablets</a></li>
+							<li><a href="#">Smart Watches</a></li>
+							<li><a href="#">Earphones</a></li>
+							<li><a href="#">Fiber</a></li>
+							<li><a href="#">Landline</a></li>
+							<li><a href="#">Goggles</a></li>
+							<li><a href="#">Other Accessories</a></li>
+						</ul>
+				</section>
+				<section class="footer_link">
+						<ul>
+							<li><h3>MySema</h3></li>
+							<li><a href="#">Log-in</a></li>
+							<li><a href="#">Sign-up</a></li>
+							<li><a href="#">Customer Services</a></li>
+						</ul>
+				</section>
+				<section class="footer_link">
+						<ul>
+							<li><h3>Community</h3></li>
+							<li><a href="#">Join Today</a></li>
+							<li><a href="#">Upcoming Events</a></li>
+							<li><a href="#">Annual Sema Marathon</a></li>
+							<li><a href="#">Charity Events</a></li>
+							<li><a href="#">The Great Great Run</a></li>
+							<li><a href="#">Christmas Events</a></li>
+							<li><a href="#">Camping</a></li>
+							<li><a href="#">Barbeques</a></li>
+							<li><a href="#">FAQs</a></li>
+							<li><a href="#">Weekly Calender</a></li>
+						</ul>
+				</section>
+				<section class="footer_link">
+						<ul>
+							<li><h3>Quick Links</h3></li>
+							<li><a href="index.html">Shop now</a></li>
+							<li><a href="sign_up.html">Sign up today</a></li>
+							<li><a href="activate_my_sim.html">Activate my sim</a></li>
+							<li><a href="community.html">About the community</a></li>
+							<li><a href="add_to_cart.html">View cart</a></li>
+						</ul>
+				</section>
+			</div>
+			<div id="social">
+				<h2>Stay in touch</h2>
+					<a href="#"><img src="Assets/Images/facebook.svg" alt="Facebook"/></a>
+				<a href="#"><img src="Assets/Images/twitter.svg" alt="Twitter"/></a>
+				<a href="#"><img src="Assets/Images/youtube.svg" alt="YouTube"/></a>
+				<p>Irish | English | Español | Français | 体中文</p>
+			</div>
+			<div id="copy_right">
+			<p>Sema mobile ltd. Registered in Dublin, Ireland. Registration Number 000000. Registered Office: 1 This avenue, This Road, Dublin 1. <br>All Rights Reserved<br>&copy; 1910–2016
+			</p>
+			</div>
+		</footer>
+	</body>
+</html>

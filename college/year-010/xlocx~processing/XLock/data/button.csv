@@ -1,0 +1,5 @@
+label,originx,originy,width_,height_
+Top 10 words, 250,420,180,50
+Least 10 words, 470,420,180,50
+Hide message, 670,420,180,50
+Reveal message, 870,420,180,50
