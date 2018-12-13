@@ -23,7 +23,6 @@ int main(int argc, char **argv)
 		if((input_fp = fopen(argv[I_FILE], "rb")) != NULL && \
           (output_fp = fopen(argv[O_FILE], "wb")) != NULL)
 		{
-
 		    while ((ascii_char = getc(input_fp)) != EOF)
 			{
 				if (!*key) key = argv[1]; // if (*key == '\0'),rewind.
