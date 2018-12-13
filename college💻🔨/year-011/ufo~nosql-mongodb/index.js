@@ -34,7 +34,7 @@ const UFOState = mongoose.model('state', StateSchema);
 const UFOCity = mongoose.model('city', CitySchema);
 const UFO = mongoose.model('ufo', UFOSchema);
 
-function save_sight(city_name,state_name,ufo) {
+function save_sight(state_name,city_name,ufo) {
     UFOCity.findOne({city_name: city_name}, function(error, city){
 	if(!city){
 	    // insert a brand new city
@@ -85,19 +85,29 @@ function save_state(s_code, city){
 	}
     })
 }
-
-ufo = new UFO({shape: 'red'});
-
-save_sight('Leeds', 'GB', ufo);
-
 /*
+ufo = new UFO({shape: 'oval'});
+save_sight('GB','Leeds', ufo);
+*/
+const Headers = Object.freeze({"SEEN_DATE":0, "STATE":1,"CITY":2, "SHAPE":3, "SUMMARY":4, "POSTED":5, "DURATION":6})
+
+
 fs.createReadStream('ufo.csv')
   .pipe(csv())
   .on('readable', function(){
-      console.log(this.read()[0])
-      console.log(this.read()[0])
+      console.log(this.read()[0]) // skip headers
+      let record
+      while(record = this.read()) {
+	  ufo = new UFO({
+	      shape: record[Headers.SHAPE],
+	      seen_date: record[Headers.SEEN_DATE],
+	      summay: record[Headers.SUMMARY],
+	      duration: record[Headers.DURATION],
+	      posted: record[Headers.POSTED]
+	  })
+	  save_sight(record[Headers.STATE], record[Headers.CITY], ufo);
+      }
   })
   .on('end', () => {
-  console.log('finished');
+      console.log('finished');
   })
-*/
