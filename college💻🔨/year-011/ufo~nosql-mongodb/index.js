@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 const csv = require('csv-parse')
 const fs = require('fs')
 
-// loop through the rows here and create a sight object
-
+// connect
 mongoose.connect('mongodb://localhost/ufo')
 
 // create a UFO object Schema
@@ -31,7 +30,7 @@ const UFOState = mongoose.model('state', StateSchema)
 const UFOCity = mongoose.model('city', CitySchema)
 const UFO = mongoose.model('ufo', UFOSchema)
 
-
+// load data from CSV file
 const Headers = Object.freeze({"SEEN_DATE":0, "STATE":1,"CITY":2, "SHAPE":3, "SUMMARY":4, "POSTED":5, "DURATION":6})
 seen_state = {}
 seen_city = {}
@@ -57,16 +56,19 @@ fs.createReadStream('ufo.csv')
 	  // this will work just like a nested city in state dictionary would but with no overhead of nested dicts complexeity.
 	  city_code = state_code +"/"+ city_name 
 
+	  // insert a state if first time seen
 	  if (!seen_state[state_code]){
 	      seen_state[state_code]= new UFOState({state_code: state_code})
 	  }
+	  // insert city if first time seen
 	  if (!seen_city[city_code]){
 	      new_city = new UFOCity({city_name: city_name})
 	      seen_state[state_code].cities.push(new_city._id)
 	      seen_city[city_code] = new_city
 	  }
-	  loaded_ufos.push(ufo)
+	  // or else just add ufo to that sity in that state
 	  seen_city[city_code].ufos.push(ufo._id)
+	  loaded_ufos.push(ufo)
       }
   })
   .on('end', () => { // PERFORM BULK INSERT
