@@ -121,7 +121,10 @@ var mapStateCity = function() {
 var reduceStateCity = function(state_id, state_cities) {
   var total_ufo_count = 0;
   state_cities.forEach(function(city_id) {
-    total_ufo_count += city_id.ufos.length; // pull those UFOs out
+	  // actually need to pull those cities out from city table with mongoose?
+	  // city_id alone does not hold the field ufos. just sayin!
+    total_ufo_count += city_id.ufos.length; // pull those UFOs out, after onComplete() of loading city
+	  // is bulk select a thing?
   });
    return total_ufo_count; 
 };
