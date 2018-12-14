@@ -11,7 +11,7 @@ const UFOSchema = new mongoose.Schema({
     shape: String, // one to few?
     summay: String,
     seen_date: {type:Date, Required: 'Seen date must be specified'},
-    updated_date: Date,
+    posted: Date,
     seen_duration: String
 })
 // one-to-squillions: one city can have a lot of ufo sightings
@@ -31,7 +31,7 @@ const UFOCity = mongoose.model('city', CitySchema)
 const UFO = mongoose.model('ufo', UFOSchema)
 
 // load data from CSV file
-const Headers = Object.freeze({"SEEN_DATE":0, "STATE":1,"CITY":2, "SHAPE":3, "SUMMARY":4, "POSTED":5, "DURATION":6})
+const Headers = Object.freeze({"SEEN_DATE":0, "STATE":1,"CITY":2, "SHAPE":3, "SUMMARY":4, "DURATION":5, "POSTED":6})
 seen_state = {}
 seen_city = {}
 loaded_ufos = []
@@ -46,7 +46,7 @@ fs.createReadStream('ufo.csv')
 	      shape: record[Headers.SHAPE],
 	      seen_date: record[Headers.SEEN_DATE],
 	      summay: record[Headers.SUMMARY],
-	      duration: record[Headers.DURATION],
+	      seen_duration: record[Headers.DURATION],
 	      posted: record[Headers.POSTED]
 	  })
 	  state_code = record[Headers.STATE]  == "" ? "NONE" : record[Headers.STATE]
