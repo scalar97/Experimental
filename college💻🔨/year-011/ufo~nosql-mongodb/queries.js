@@ -193,36 +193,50 @@ db.states.aggregate(
        // change -1 to 1 to view the city with the least sights
      	$sort : { 'total_sights' : -1, 'state_code': 1}
      },
-     {  // uncomment to leave the city with the most sights
-	// or change this value to view N of them
+     {  // uncomment to display all states sorted by sight count
+	// or change 1 below to N to view N of them
      	$limit : 1
      }
   ]
 )
 
-// FINAL THOUGHTS ON USING MAP-REDUCE AFTER BEING CLOSE TO GIVING UP
+// FINAL THOUGHTS ON USING MAP-REDUCE AFTER BEING CLOSE TO GIVING UP?
 
-// after successfully mapping and reducing the ciities collection then embedding the output in the state collection.
-// I started wondering if creating a view like in typical relational DBMS.. couldn've have made this whole thing easier?
+// The most relevant experience I somewhat had with map reduce was the map-filter-reduce functions used
+// in python's std lib and its functools library.
+// I wan't surprised that its application would be the same when used with a database, except that there would be
+// a possibility that map-reduce on dbs would be optimised to spead the job needed to be done over
+// the available physical ressources. Speaking 'multiple cores', over one or 'more machines' if available etc.
 
-// the collections I designed were fully normalised with 1 to many(state-city) and one to squillion relationships(city-ufo).
-// this saves on updates/delete as the state name is not replicated many time and so is the city name
+// But after successfully using map-reduce on the cities collection then embedding the map-reduce output
+// in the states collection, I started wondering if creating a normal 'collection-view' like in typical relational DBMS..
+// couldn've have made this whole thing easier? I mean I only have 1000 rows right? barely reaching 1Kib each?
+// is this something I really need to use map-reduce on?
+// Hmmm..
+// Also, the collections I designed were fully normalised with 1 to many(state-city)
+// and one to squillion relationships(city-ufo). this saves on updates/delete as the state name is not
+// replicated many time and so is the city name
 // but in my opinion made queries more complex and possibly affected the armotized time complexeity?
 // which I won't calculate, but what I mean is the cost of $lookup, $unwind, $$this $etc
-// I doubt will be cheaper than transversing this same dataset if it was denormaised.
-// this dataset is not typical for updates/deletes so that normalisation could have been overlooked given the nature of the data.
+// I doubt will be cheaper than transversing this same dataset if it was denormalised.
+// this dataset is not typical for updates/deletes so that normalisation could have been overlooked given the nature
+// of the data.
 
-// data is now structured (which NoSQL is not supposed to be about?) and I don't see much gain in memory being used if references still have to be kept.
-// maybe the 16MB limitation of doc size would be hit if every UFO sighting now added a gallery field to hold the pictures when the event happened.
-// and then I 'the programmer' would wish I had the UFO object thier own collections etc..
-// but with just a 'summary' description barely using 1Kib, I don't see any need of storing tights references of 1 to many or one to squillions
-// as asked in this assignment brief. as least considering the nature of this data.
+// Collections are now structured? (which NoSQL "alias for -unstructured data" is not supposed to be about?)
+// and I didn't see much gain in memory being used if references still have to be kept.
+// maybe the 16MB limitation of doc size would be hit if every UFO sighting now added
+// a gallery field to hold the pictures when the event happened.
+// and then I 'the programmer' would wish I had the UFO object in thier own collections/documents etc..
+// but with just a 'summary' description barely using 1Kib, I don't see any need of storing tights references of 1 to
+// many or one to squillions as asked in this assignment brief. at least considering the nature of this data.
 
-// as take away, the $lookup aggregation ('flag' it's called?), turned out to be very useful and mostly all I could've needed..
-// it offers the possibility of embed output from subqueries inside the current aggregation.
+// as take away, the $lookup aggregation 'flag' it's called?, turned out to be very useful and mostly all I could've needed..
+// it offers the possibility to embed the output from subqueries inside the current aggregation.
 // as a result,
 // I could've then just $unwind states.cities, then join the whole cities collection using $lookup.
 // reduce it to the length of its ufos subcollection array then group the output by state, by ufo count.
-
-// This could have made the above below a bit longer, possibly complex, but I guess thats's when
+// This could have made the above query a bit longer, possibly complex, but I guess thats's when
 // MAP-REDUCE with its {out: 'at_last'} dynamic collection came in handy, as it devided the job neded to be done.
+
+// I also learnt that the order in which the aggregation flags are used actually matters O.O?
+// realised after getting jammed into undesired outputs in ATTEMPT 2, Q9.
