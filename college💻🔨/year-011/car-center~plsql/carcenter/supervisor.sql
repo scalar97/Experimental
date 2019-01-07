@@ -1,3 +1,5 @@
+# -*- mode: sql -*-
+
 -- Tatiana Zihindula : SUPERVISOR ROLE
 
 -- C16339923

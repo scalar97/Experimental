@@ -1,3 +1,4 @@
+# -*- mode: sql -*-
 
 -- GROUP : DT2283GROUP_N
 
